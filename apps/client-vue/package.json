@@ -1,18 +1,20 @@
 {
-  "name": "client-qwik",
+  "name": "client-vue",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.4.0"
-  },
   "dependencies": {
-    "@builder.io/qwik": "^1.2.5"
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5"
   }
 }
