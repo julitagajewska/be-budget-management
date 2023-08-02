@@ -11,7 +11,7 @@ export default defineConfig({
       csr: true,
     }),
   ],
-})
+});
 ```
 
 Use `npm create qwik@latest` to create a full production ready Qwik application, using SSR and [QwikCity](https://qwik.builder.io/docs/qwikcity/), our server-side metaframwork.

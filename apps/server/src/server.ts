@@ -5,8 +5,8 @@ import morgan from 'morgan';
 const router: Express = express();
 
 const server = http.createServer((req, res) => {
-   res.write('Hello World!')
-   res.end()
+  res.write('Hello World!');
+  res.end();
 });
 
 const PORT: any = process.env.PORT ?? 6060;
