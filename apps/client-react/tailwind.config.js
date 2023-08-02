@@ -1,12 +1,18 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+// /** @type {import('tailwindcss').Config} */
+// export default {
+//   content: [
+//     "./index.html",
+//     "./src/**/*.{js,ts,jsx,tsx}",
+//   ],
+//   theme: {
+//     extend: {},
+//   },
+//   plugins: [],
+// }
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const sharedConfig = require('tailwind-config/tailwind.config');
+
+module.exports = {
+  presets: [sharedConfig],
+};

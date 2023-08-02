@@ -7,4 +7,10 @@ module.exports = {
       rootDir: ["apps/*/"],
     },
   },
+  ignorePatterns: ['*.config.js'],
+  "env": {
+    "browser": true,
+    "amd": true,
+    "node": true
+  },
 };
