@@ -1,9 +1,9 @@
-import './App.css'
-
 function App() {
 
   return (
-    <h1 className='bg-blue-500'>PLZ WORK</h1>
+    <div className="w-full h-screen flex flex-col justify-center items-center">
+      <h1 className='bg-react px-24 py-10 flex flex-row justify-center items-center'>REACT CLIENT</h1>
+    </div>
   )
 }
 
