@@ -1,0 +1,2 @@
+- Components shared between the views
+- Presentational components: only take din the data and display it

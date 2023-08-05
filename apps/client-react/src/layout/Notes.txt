@@ -1,0 +1,1 @@
+- Components that deal only with positioning of the elements
