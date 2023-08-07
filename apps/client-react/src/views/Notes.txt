@@ -1,0 +1,2 @@
+- Components unique for each of the view - intermediate version
+- Only files, one for each page, no folders, pages import everything from features folders - advanced version
