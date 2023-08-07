@@ -1,7 +1,11 @@
+import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
+import Routing from './routing/Routing.tsx';
+
 const App = () => {
-  // console.log('');
   return (
-    
+    <AuthenticationContextProvider>
+      <Routing />
+    </AuthenticationContextProvider>
   );
 };
 

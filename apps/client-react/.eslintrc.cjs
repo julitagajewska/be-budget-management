@@ -29,20 +29,22 @@ module.exports = {
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-this-alias': 'warn',
     'no-unexpected-multiline': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',
     'react/jsx-no-target-blank': 'warn',
     'block-scoped-var': 'error',
     'no-console': 'warn',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'consistent-return': [
       'warn',
       {
         treatUndefinedAsUnspecified: false,
       },
     ],
-    curly: ['error', 'multi-line', 'consistent'],
+    'object-curly-newline': 'off',
+    curly: ['warn', 'multi-line', 'consistent'],
     'default-case': 'error',
     'dot-location': ['error', 'property'],
     eqeqeq: ['warn', 'smart'],
@@ -268,6 +270,7 @@ module.exports = {
     'max-len': [
       'error',
       {
+        ignoreStrings: true,
         code: 150,
       },
     ],
