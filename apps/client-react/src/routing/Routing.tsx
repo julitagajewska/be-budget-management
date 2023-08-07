@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+  AccountDetailsView,
+  AccountsView,
   BudgetDetailsView,
   BudgetsView,
   ExpensesView,
@@ -12,9 +14,11 @@ import {
   SettingsView,
   TransactionDetailsView,
   TransactionsView,
+  UsersProfileView,
   WelcomeView,
 } from '../views/index.ts';
 import PrivateRoutes from '../utils/PrivateRoutes.tsx';
+import HelpView from '../views/general/HelpView.tsx';
 
 const Routing = () => {
   return (
@@ -38,12 +42,13 @@ const Routing = () => {
           <Route path="goals" element={<GoalsView />}>
             <Route path=":id" element={<GoalDetailsView />} />
           </Route>
-          <Route path="accounts" element={<LoginView />}>
-            <Route path=":id" element={<LoginView />} />
+          <Route path="accounts" element={<AccountsView />}>
+            <Route path=":id" element={<AccountDetailsView />} />
           </Route>
-          <Route path="reports" element={<LoginView />} />
-          <Route path="profile" element={<LoginView />} />
+          <Route path="reports" element={<RegisterView />} />
+          <Route path="profile" element={<UsersProfileView />} />
           <Route path="settings" element={<SettingsView />} />
+          <Route path="help" element={<HelpView />} />
         </Route>
       </Routes>
     </BrowserRouter>
