@@ -18,6 +18,7 @@ import {
 import Sidebar from './Sidebar.tsx';
 import IconButton from '../components/buttons/IconButton.tsx';
 import Typography from '../components/typography/Typography.tsx';
+import CollapsibleButton from '../components/buttons/CollapsibleButton.tsx';
 
 const PageContainer = ({ children }: PropsWithChildren) => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthenticationContext) as AuthenticationContextType;
@@ -29,7 +30,7 @@ const PageContainer = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <div className="w-screen h-full bg-slate-400 flex flex-row justify-between px-[15rem] py-4">
+    <div className="w-screen h-full flex flex-row justify-between px-[15rem] py-4 bg-neutral-100">
       {isLoggedIn ? (
         <Sidebar side="left">
           <div>
@@ -43,20 +44,7 @@ const PageContainer = ({ children }: PropsWithChildren) => {
                 <Typography variant="paragraph2">Home</Typography>
               </IconButton>
 
-              <IconButton handleClick={() => navigate('transactions')} variant="transparent">
-                <Exchange size="small" />
-                <Typography variant="paragraph2">Transactions</Typography>
-              </IconButton>
-
-              <IconButton handleClick={() => navigate('incomes')} variant="transparent">
-                <ArrowLeft size="small" />
-                <Typography variant="paragraph2">Incomes</Typography>
-              </IconButton>
-
-              <IconButton handleClick={() => navigate('expenses')} variant="transparent">
-                <ArrowRight size="small" />
-                <Typography variant="paragraph2">Expenses</Typography>
-              </IconButton>
+              <CollapsibleButton />
 
               <IconButton handleClick={() => navigate('goals')} variant="transparent">
                 <Star size="small" />

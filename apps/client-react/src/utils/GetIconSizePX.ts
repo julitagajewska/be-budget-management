@@ -7,15 +7,15 @@ const getIconSize = (size: string) => {
       break;
     }
     case 'medium': {
-      sizePx = 24;
+      sizePx = 20;
       break;
     }
     case 'large': {
-      sizePx = 36;
+      sizePx = 24;
       break;
     }
     default: {
-      sizePx = 24;
+      sizePx = 20;
       break;
     }
   }
