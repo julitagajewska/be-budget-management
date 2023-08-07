@@ -11,7 +11,9 @@ const Sidebar = ({ side, children }: PropsWithChildren<SidebarProps>) => {
         side === 'left' ? 'left-0' : 'right-0'
       }`}
     >
-      <div className=" rounded-xl shadow-2xl h-full w-full flex flex-col justify-between p-5">{children}</div>
+      <div className="rounded-xl shadow-2xl h-full w-full flex flex-col justify-between p-5 bg-primary-light">
+        {children}
+      </div>
     </div>
   );
 };

@@ -1,14 +1,35 @@
 const colors = require('tailwindcss/colors');
 
+function withOpacity(variable) {
+  console.log(variable);
+  return `var(${variable})`;
+
+  return opacity => {
+    console.log(opacity);
+
+    if (opacity !== undefined) return `rgba(var(${variable}), ${opacity})`;
+
+    return `rgb(var(${variable})`;
+  };
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,vue}'],
   theme: {
     extend: {
       colors: {
-        react: '#61DAFB',
-        vue: '#42D392',
-        qwik: '#AC7EF4',
+        'primary-light': withOpacity('--primary-light'),
+        'primary-medium': withOpacity('--primary-medium'),
+        'primary-dark': withOpacity('--primary-dark'),
+        'accent-1': withOpacity('--accent-1'),
+        'accent-2': withOpacity('--accent-2'),
+        'accent-3': withOpacity('--accent-3'),
+        'accent-1-hover': withOpacity('--accent-1-hover'),
+        'accent-2-hover': withOpacity('--accent-2-hover'),
+        'accent-3-hover': withOpacity('--accent-3-hover'),
+        'font-light': withOpacity('--font-light'),
+        'font-dark': withOpacity('--font-dark'),
       },
     },
   },

@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-light: rgb(255, 255, 255);
+    --primary-medium: rgb(249, 249, 249);
+    --primary-dark: rgb(229, 229, 229);
+    --accent-1: rgb(8, 126, 164);
+    --accent-2: rgb(8, 126, 164);
+    --accent-3: rgb(8, 126, 164);
+    --accent-1-hover: rgb(57, 152, 182);
+    --accent-2-hover: rgb(8, 126, 164);
+    --accent-3-hover: rgb(8, 126, 164);
+    --font-light: rgb(246, 247, 249);
+    --font-dark: rgb(25, 39, 47);
+  }
+  .react-light {
+    --primary-light: rgb(255, 255, 255);
+    --primary-medium: rgb(249, 249, 249);
+    --primary-dark: rgb(229, 229, 229);
+    --accent-1: rgb(8, 126, 164);
+    --accent-2: rgb(8, 126, 164);
+    --accent-3: rgb(8, 126, 164);
+    --accent-1-hover: rgb(57, 152, 182);
+    --accent-2-hover: rgb(8, 126, 164);
+    --accent-3-hover: rgb(8, 126, 164);
+    --font-light: rgb(249, 249, 249);
+    --font-dark: rgb(25, 39, 47);
+  }
+  .vue-light {
+    --primary-light: rgb(255, 255, 255);
+    --primary-medium: rgb(249, 249, 249);
+    --primary-dark: rgb(229, 229, 229);
+    --accent-1: rgb(66, 211, 146);
+    --accent-2: rgb(77, 183, 182);
+    --accent-3: rgb(96, 136, 243);
+    --accent-1-hover: rgb(51, 160, 111);
+    --accent-2-hover: rgb(51, 158, 156);
+    --accent-3-hover: rgb(64, 105, 219);
+    --font-light: rgb(249, 249, 249);
+    --font-dark: rgb(33, 53, 71);
+  }
+  .qwik-light {
+    --primary-light: rgb(255, 255, 255);
+    --primary-medium: rgb(249, 249, 249);
+    --primary-dark: rgb(229, 229, 229);
+    --accent-1: rgb(172, 126, 244);
+    --accent-2: rgb(25, 182, 246);
+    --accent-3: rgb(172, 126, 244);
+    --accent-1-hover: rgb(154, 106, 231);
+    --accent-2-hover: rgb(18, 167, 226);
+    --accent-3-hover: rgb(154, 106, 231);
+    --font-light: rgb(249, 249, 249);
+    --font-dark: rgb(21, 25, 52);
+  }
+  .react-dark {
+    --primary-light: rgb(51, 58, 69);
+    --primary-medium: rgb(35, 39, 47);
+    --primary-dark: rgb(25, 27, 33);
+    --accent-1: rgb(8, 126, 164);
+    --accent-2: rgb(8, 126, 164);
+    --accent-3: rgb(8, 126, 164);
+    --accent-1-hover: rgb(57, 152, 182);
+    --accent-2-hover: rgb(8, 126, 164);
+    --accent-3-hover: rgb(8, 126, 164);
+    --font-light: rgb(249, 249, 249);
+    --font-dark: rgb(25, 39, 47);
+  }
+  .vue-dark {
+    --primary-light: rgb(58, 58, 58);
+    --primary-medium: rgb(36, 36, 36);
+    --primary-dark: rgb(26, 26, 26);
+    --accent-1: rgb(51, 160, 111);
+    --accent-2: rgb(51, 158, 156);
+    --accent-3: rgb(64, 105, 219);
+    --accent-1-hover: rgb(66, 211, 146);
+    --accent-2-hover: rgb(77, 183, 182);
+    --accent-3-hover: rgb(96, 136, 243);
+    --font-light: rgb(249, 249, 249);
+    --font-dark: rgb(33, 53, 71);
+  }
+  .qwik-dark {
+    --primary-light: rgb(24, 42, 76);
+    --primary-medium: rgb(21, 25, 52);
+    --primary-dark: rgb(16, 16, 16);
+    --accent-1: rgb(154, 106, 231);
+    --accent-2: rgb(18, 167, 226);
+    --accent-3: rgb(154, 106, 231);
+    --accent-1-hover: rgb(172, 126, 244);
+    --accent-2-hover: rgb(25, 182, 246);
+    --accent-3-hover: rgb(172, 126, 244);
+    --font-light: rgb(249, 249, 249);
+    --font-dark: rgb(21, 25, 52);
+  }
+}
