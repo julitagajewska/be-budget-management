@@ -30,7 +30,7 @@ const PageContainer = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <div className="w-screen h-full flex flex-row justify-between px-[15rem] py-4 bg-neutral-100">
+    <div className="react-light w-screen h-full flex flex-row justify-between px-[15rem] py-4 bg-primary-medium">
       {isLoggedIn ? (
         <Sidebar side="left">
           <div>
@@ -78,7 +78,7 @@ const PageContainer = ({ children }: PropsWithChildren) => {
                 <Typography variant="paragraph2">Settings</Typography>
               </IconButton>
 
-              <IconButton handleClick={() => navigate('help')} variant="transparent">
+              <IconButton handleClick={() => navigate('help')} variant="filled">
                 <InfoCircle size="small" />
                 <Typography variant="paragraph2">Help</Typography>
               </IconButton>
