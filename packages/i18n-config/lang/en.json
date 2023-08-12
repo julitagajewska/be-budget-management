@@ -1,0 +1,17 @@
+{
+  "page": {
+    "title": {
+      "home": "Main dashboard",
+      "transactions": "Transactions",
+      "incomes": "Incomes",
+      "expenses": "Expenses",
+      "goals": "Goals",
+      "budgets": "Budgets",
+      "reports": "Reports",
+      "accounts": "Accounts",
+      "profile": "Your profile",
+      "settings": "Settings",
+      "help": "Help"
+    }
+  }
+}
