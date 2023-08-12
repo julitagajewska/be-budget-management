@@ -1,0 +1,17 @@
+{
+  "page": {
+    "title": {
+      "home": "Strona główna",
+      "transactions": "Transakcje",
+      "incomes": "Dochody",
+      "expenses": "Wydatki",
+      "goals": "Cele",
+      "budgets": "Budżety",
+      "reports": "Raporty",
+      "accounts": "Konta",
+      "profile": "Twój profil",
+      "settings": "Ustawienia",
+      "help": "Pomoc"
+    }
+  }
+}

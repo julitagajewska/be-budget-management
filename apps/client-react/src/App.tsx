@@ -1,3 +1,4 @@
+import './translations/i18next.ts';
 import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
 import Routing from './routing/Routing.tsx';
 
