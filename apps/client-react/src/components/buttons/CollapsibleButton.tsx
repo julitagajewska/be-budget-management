@@ -14,15 +14,15 @@ const CollapsibleButton = () => {
         <IconButton handleClick={() => {}} variant="transparent">
           <button type="button" onClick={() => navigate('transactions')} className="flex flex-row items-center gap-2">
             <Exchange size="small" />
-            <Typography variant="paragraph2">Transactions</Typography>
+            <Typography variant="helper">Transactions</Typography>
           </button>
           <button
             type="button"
             onClick={() => setCollapsed(!collapsed)}
             className={`${
               collapsed ? 'rotate-0' : 'rotate-180'
-            } w-6 h-6 flex flex-row items-center justify-center transition-all
-            duration-100 ease-out rounded-full opacity-50 hover:opacity-100`}
+            } w-6 h-6 flex flex-row items-center justify-center transition-all bg-slate-300 bg-opacity-0 hover:bg-opacity-100
+            duration-300 ease-out rounded-full opacity-50 hover:opacity-100 hover:pointer-events-auto`}
           >
             <CaretDown size="medium" />
           </button>
@@ -36,12 +36,12 @@ const CollapsibleButton = () => {
       >
         <IconButton handleClick={() => navigate('incomes')} variant="transparent">
           <ArrowLeft size="small" />
-          <Typography variant="paragraph2">Incomes</Typography>
+          <Typography variant="helper">Incomes</Typography>
         </IconButton>
 
         <IconButton handleClick={() => navigate('expenses')} variant="transparent">
           <ArrowRight size="small" />
-          <Typography variant="paragraph2">Expenses</Typography>
+          <Typography variant="helper">Expenses</Typography>
         </IconButton>
       </div>
     </div>

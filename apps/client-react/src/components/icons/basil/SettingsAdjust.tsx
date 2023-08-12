@@ -5,7 +5,14 @@ const SettingsAdjust = ({ size }: IconProps) => {
   const sizePX = getIconSize(size);
 
   return (
-    <svg width={`${sizePX}`} height={`${sizePX}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width={`${sizePX}`}
+      height={`${sizePX}`}
+      className="fill-current"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"

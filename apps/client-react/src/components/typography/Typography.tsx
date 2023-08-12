@@ -29,15 +29,16 @@ const sizes: Record<Variant, string> = {
 type TypographyProps = {
   variant: Variant;
   bold?: boolean;
+  styles?: string;
 };
 
-const Typography = ({ children, variant, bold }: PropsWithChildren<TypographyProps>) => {
+const Typography = ({ children, variant, bold, styles }: PropsWithChildren<TypographyProps>) => {
   let sizeClasses = sizes[variant];
   const Tag = tags[variant];
 
   if (bold) sizeClasses += ' font-bold';
 
-  return <Tag className={`${sizeClasses}`}>{children}</Tag>;
+  return <Tag className={`${sizeClasses} ${styles}`}>{children}</Tag>;
 };
 
 Typography.defaultProps = {

@@ -20,14 +20,27 @@
     --primary-light: 255, 255, 255;
     --primary-medium: 249, 249, 249;
     --primary-dark: 229, 229, 229;
+    --accent-1: 57, 152, 182;
+    --accent-2: 8, 126, 164;
+    --accent-3: 8, 126, 164;
+    --accent-1-hover: 8, 126, 164;
+    --accent-2-hover: 8, 126, 164;
+    --accent-3-hover: 8, 126, 164;
+    --font-light: 249, 249, 249;
+    --font-dark: 25, 39, 47;
+  }
+  .react-dark {
+    --primary-light: 51, 58, 69;
+    --primary-medium: 35, 39, 47;
+    --primary-dark: 25, 27, 33;
     --accent-1: 8, 126, 164;
     --accent-2: 8, 126, 164;
     --accent-3: 8, 126, 164;
     --accent-1-hover: 57, 152, 182;
     --accent-2-hover: 8, 126, 164;
     --accent-3-hover: 8, 126, 164;
-    --font-light: 249, 249, 249;
-    --font-dark: 25, 39, 47;
+    --font-light: 25, 39, 47;
+    --font-dark: 249, 249, 249;
   }
   .vue-light {
     --primary-light: 255, 255, 255;
@@ -54,19 +67,6 @@
     --accent-3-hover: 154, 106, 231;
     --font-light: 249, 249, 249;
     --font-dark: 21, 25, 52;
-  }
-  .react-dark {
-    --primary-light: 51, 58, 69;
-    --primary-medium: 35, 39, 47;
-    --primary-dark: 25, 27, 33;
-    --accent-1: 8, 126, 164;
-    --accent-2: 8, 126, 164;
-    --accent-3: 8, 126, 164;
-    --accent-1-hover: 57, 152, 182;
-    --accent-2-hover: 8, 126, 164;
-    --accent-3-hover: 8, 126, 164;
-    --font-light: 249, 249, 249;
-    --font-dark: 25, 39, 47;
   }
   .vue-dark {
     --primary-light: 58, 58, 58;

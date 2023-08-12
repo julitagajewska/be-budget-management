@@ -1,14 +1,8 @@
 const colors = require('tailwindcss/colors');
 
 function withOpacity(variable) {
-  // console.log(variable);
-  // return `var(${variable})`;
-
   return opacity => {
-    console.log(opacity);
-
     if (opacity !== undefined) return `rgba(var(${variable}), ${opacity.opacityValue})`;
-
     return `rgb(var(${variable})`;
   };
 }

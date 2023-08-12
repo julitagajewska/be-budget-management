@@ -5,7 +5,14 @@ const Minus = ({ size }: IconProps) => {
   const sizePX = getIconSize(size);
 
   return (
-    <svg width="36" height="36" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 18 18"
+      fill="none"
+      className="fill-current"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path d="M7 12L17 12" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
