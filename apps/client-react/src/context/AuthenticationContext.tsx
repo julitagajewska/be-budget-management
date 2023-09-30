@@ -1,6 +1,7 @@
 import { PropsWithChildren, createContext, useMemo, useState } from 'react';
 
 // TODO - change it so it uses database
+// TODO - change it to Redux
 export type AuthenticationContextType = {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;

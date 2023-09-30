@@ -22,4 +22,8 @@ const CaretLeft = ({ size }: IconProps) => {
   );
 };
 
+CaretLeft.defaultProps = {
+  size: 'small',
+} as Pick<IconProps, keyof IconProps>;
+
 export default CaretLeft;
