@@ -1,4 +1,4 @@
-import React, { ElementType, PropsWithChildren } from 'react';
+import { ElementType, PropsWithChildren } from 'react';
 
 type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'paragraph1' | 'paragraph2' | 'helper' | 'helper' | 'caption';
 

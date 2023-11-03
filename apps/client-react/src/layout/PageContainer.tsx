@@ -16,7 +16,7 @@ import {
   Wallet,
 } from '../components/icons/basil/index.ts';
 import Sidebar from './Sidebar.tsx';
-import IconButton from '../components/buttons/IconButton.tsx';
+import IconButton from '../components/buttons/IconButtonOld.tsx';
 import Typography from '../components/typography/Typography.tsx';
 import CollapsibleButton from '../components/buttons/CollapsibleButton.tsx';
 

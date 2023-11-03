@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@angular/localize": "^16.2.0",
-    "@builder.io/qwik": "^1.2.6"
+    "@builder.io/qwik": "^1.2.6",
+    "vite-plugin-svgr": "^4.1.0"
   }
 }

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationContext, AuthenticationContextType } from '../../context/AuthenticationContext.tsx';
 import Typography from '../../components/typography/Typography.tsx';
-import IconButton from '../../components/buttons/IconButton.tsx';
+import IconButton from '../../components/buttons/IconButtonOld.tsx';
 
 const LoginView = () => {
   const { setIsLoggedIn } = useContext(AuthenticationContext) as AuthenticationContextType;

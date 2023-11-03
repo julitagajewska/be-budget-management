@@ -18,8 +18,24 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,vue}'],
   theme: {
     extend: {
+      fontFamily: {
+        slab: ['Roboto Slab', 'serif'],
+        mulish: ['Mulish', 'sans-serif'],
+      },
+      fontSize: {
+        sm: '0.8rem',
+        base: '1rem',
+        xl: '1.25rem',
+        '2xl': '1.563rem',
+        '3xl': '1.953rem',
+        '4xl': '2.441rem',
+        '5xl': '3.052rem',
+      },
+      boxShadow: {
+        'soft-shadow': '0px 7px 29px 0px rgba(100, 100, 111, 0.45)',
+      },
       colors: {
-        'text': {
+        text: {
           50: 'var(--text-50)',
           100: 'var(--text-100)',
           200: 'var(--text-200)',
@@ -32,7 +48,7 @@ module.exports = {
           900: 'var(--text-900)',
           950: 'var(--text-950)',
         },
-        'background': {
+        background: {
           50: 'var(--background-50)',
           100: 'var(--background-100)',
           200: 'var(--background-200)',
@@ -45,7 +61,7 @@ module.exports = {
           900: 'var(--background-900)',
           950: 'var(--background-950)',
         },
-        'primary': {
+        primary: {
           50: 'var(--primary-50)',
           100: 'var(--primary-100)',
           200: 'var(--primary-200)',
@@ -58,7 +74,7 @@ module.exports = {
           900: 'var(--primary-900)',
           950: 'var(--primary-950)',
         },
-        'secondary': {
+        secondary: {
           50: 'var(--secondary-50)',
           100: 'var(--secondary-100)',
           200: 'var(--secondary-200)',
@@ -71,7 +87,7 @@ module.exports = {
           900: 'var(--secondary-900)',
           950: 'var(--secondary-950)',
         },
-        'accent': {
+        accent: {
           50: 'var(--accent-50)',
           100: 'var(--accent-100)',
           200: 'var(--accent-200)',
@@ -84,7 +100,7 @@ module.exports = {
           900: 'var(--accent-900)',
           950: 'var(--accent-950)',
         },
-        },
+      },
     },
   },
   plugins: [],

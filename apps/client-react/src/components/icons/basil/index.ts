@@ -28,6 +28,7 @@ import Star from './Star.tsx';
 import Sun from './Sun.tsx';
 import User from './User.tsx';
 import Wallet from './Wallet.tsx';
+import Globe from './Globe.tsx';
 
 export {
   Home,
@@ -60,4 +61,5 @@ export {
   Sun,
   User,
   Wallet,
+  Globe
 };

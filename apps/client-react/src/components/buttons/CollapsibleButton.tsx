@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CaretDown, Exchange } from '../icons/basil/index.ts';
 import Typography from '../typography/Typography.tsx';
-import IconButton from './IconButton.tsx';
+import IconButton from './IconButtonOld.tsx';
 
 const CollapsibleButton = () => {
   const [collapsed, setCollapsed] = useState(true);
