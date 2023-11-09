@@ -15,29 +15,30 @@ const tags: Record<Variant, ElementType> = {
 };
 
 const sizes: Record<Variant, string> = {
-  h1: 'text-5xl sm:text-4xl',
-  h2: 'text-4xl sm:text-3xl',
-  h3: 'text-3xl sm:text-2xl',
-  h4: 'text-2xl sm:text-1xl',
-  h5: 'text-xl sm:text-lg',
-  paragraph1: 'text-lg sm:text-md',
-  paragraph2: 'text-base sm:text-md',
-  helper: 'text-md sm:text-sm',
-  caption: 'text-sm sm:text-xs',
+  h1: 'text-5xl sm:text-4xl font-slab',
+  h2: 'text-4xl sm:text-3xl font-slab',
+  h3: 'text-3xl sm:text-2xl font-slab',
+  h4: 'text-2xl sm:text-1xl font-slab',
+  h5: 'text-xl sm:text-lg font-slab',
+  paragraph1: 'text-lg sm:text-md font-mulish',
+  paragraph2: 'text-base sm:text-md font-mulish',
+  helper: 'text-md sm:text-sm font-mulish',
+  caption: 'text-sm sm:text-xs font-mulish',
 };
 
 type TypographyProps = {
   variant: Variant;
   bold?: boolean;
+  className?: string
 };
 
-const Typography = ({ children, variant, bold }: PropsWithChildren<TypographyProps>) => {
+const Typography = ({ children, variant, bold, className }: PropsWithChildren<TypographyProps>) => {
   let sizeClasses = sizes[variant];
   const Tag = tags[variant];
 
   if (bold) sizeClasses += ' font-bold';
 
-  return <Tag className={`${sizeClasses}`}>{children}</Tag>;
+  return <Tag className={`${sizeClasses} ${className}`}>{children}</Tag>;
 };
 
 Typography.defaultProps = {
