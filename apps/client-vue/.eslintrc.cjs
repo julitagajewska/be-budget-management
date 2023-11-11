@@ -11,6 +11,7 @@ module.exports = {
     'eslint:recommended',
     '@vue/typescript/recommended',
     'prettier',
+     "plugin:prettier/recommended"
   ],
   parserOptions: {
     ecmaVersion: 12,

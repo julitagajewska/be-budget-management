@@ -1,0 +1,14 @@
+<script lang="ts">
+    export default {
+        props: [],
+        data: () => ({
+
+        })
+    }
+</script>
+
+<template>
+    <div class="bg-green-300 text-black">
+        <h1>Reports</h1>
+    </div>
+</template>
