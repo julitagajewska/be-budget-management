@@ -4,7 +4,7 @@ defineProps<{
   toggleFunction: () => void
 }>()
 
-const openClasses = 'w-60'
+const openClasses = 'w-72'
 const closedClasses = 'w-10'
 </script>
 
@@ -16,11 +16,13 @@ const closedClasses = 'w-10'
     }`"
   >
     <!-- Sidebar tile -->
-    <div class="bg-background-50 w-full h-full shadow-large rounded-xl">
-      <span v-if="isOpen">Open</span>
-      <span v-else>Closed</span>
+    <div
+      class="bg-background-50 w-full h-full shadow-large rounded-xl px-4 py-4 flex flex-col justify-between"
+    >
+      <!-- <span v-if="isOpen">Open</span>
+      <span v-else>Closed</span> -->
 
-      <button @click="toggleFunction">Toggle</button>
+      <!-- <button @click="toggleFunction">Toggle</button> -->
       <slot> </slot>
     </div>
   </div>

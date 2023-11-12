@@ -1,14 +1,12 @@
 <script lang="ts">
-    export default {
-        props: [],
-        data: () => ({
-
-        })
-    }
+export default {
+  props: [],
+  data: () => ({})
+}
 </script>
 
 <template>
-    <div class="bg-green-300 text-black">
-        <h1>Settings</h1>
-    </div>
+  <div class="content-container">
+    <h1>Ustawienia</h1>
+  </div>
 </template>

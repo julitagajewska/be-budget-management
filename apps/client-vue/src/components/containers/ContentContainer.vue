@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-sky-300 h-[200vh] w-full">
+  <div class="h-[200vh] w-full">
     <slot> </slot>
   </div>
 </template>
