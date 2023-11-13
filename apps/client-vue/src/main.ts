@@ -1,15 +1,21 @@
 import { createApp } from 'vue'
+import App from './App.vue'
 
 // ROUTING
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routing/routes.js'
 
-import 'tailwind-config/index.css'
-import App from './App.vue'
+// STATE MANAGEMENT
+import { createPinia } from 'pinia'
+
+// TRANSLATIONS
 import i18next from 'i18next'
 import I18NextVue from 'i18next-vue'
 import english from 'i18n-config/lang/en.json'
 import polish from 'i18n-config/lang/pl.json'
+
+// STYLES
+import 'tailwind-config/index.css'
 
 const app = createApp(App)
 
@@ -20,26 +26,11 @@ const router = createRouter({
 })
 app.use(router)
 
-// const RoutesWithLogin = ['Dashboard', 'Profile']
+// STATE MANAGEMENT
+const pinia = createPinia()
+app.use(pinia)
 
-// router.beforeEach((to, from, next) => {
-//   if (to.name) {
-//     if (RoutesWithLogin.includes(to.name as string)) {
-//       const isAuthenticated = true
-
-//       if (isAuthenticated) {
-//         next();
-//       } else {
-//         next({ name: 'Login' })
-//       }
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next();
-//   }
-// });
-
+// TRANSLATION
 i18next.init({
   lng: 'pl',
   fallbackLng: 'pl',
@@ -55,6 +46,5 @@ i18next.init({
     }
   }
 })
-
 app.use(I18NextVue, { i18next })
 app.mount('#app')

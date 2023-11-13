@@ -16,6 +16,8 @@ import Plus from '@icons/Plus.vue'
 import Logo from '../../components/logo/Logo.vue'
 import DarkModeButton from '../buttons/DarkModeButton.vue'
 import { ref } from 'vue'
+import { Theme, useAppSettingsStore } from '@/stores/AppSettingsStore'
+// import { useAppSettingsStore } from '@stores/AppSettingsStore'
 
 export default {
   name: 'NavigationSidebar',
@@ -38,6 +40,12 @@ export default {
     DarkModeButton
   },
   setup() {
+    const appSettingsStore = useAppSettingsStore()
+
+    const setTheme = (theme: Theme) => {
+      appSettingsStore.setTheme(theme)
+    }
+
     const open = ref(true)
     const toggle = () => {
       open.value = !open.value
@@ -45,7 +53,9 @@ export default {
 
     return {
       open,
-      toggle
+      toggle,
+      setTheme,
+      Theme
     }
   }
 }
@@ -68,39 +78,78 @@ export default {
         </button>
       </div>
 
+      <div class="mb-4">
+        <button
+          @click="setTheme(Theme.VUE)"
+          class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] bg-text-500 text-text-50 hover:bg-primary-600 transition-all ease-in-out duration-300"
+        >
+          Vue
+        </button>
+      </div>
+      <div class="mb-4">
+        <button
+          @click="setTheme(Theme.REACT)"
+          class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] bg-primary-500 text-text-50 hover:bg-primary-600 transition-all ease-in-out duration-300"
+        >
+          React
+        </button>
+      </div>
+      <div class="mb-4">
+        <button
+          @click="setTheme(Theme.QWIK)"
+          class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] bg-primary-500 text-text-50 hover:bg-primary-600 transition-all ease-in-out duration-300"
+        >
+          Qwik
+        </button>
+      </div>
+
       <!-- Menu -->
       <div class="flex flex-col gap-1 mb-4">
         <span class="text-xs font-medium">Menu</span>
-        <a href="/" class="sidebar-link"> <Home class="text-base" />Strona główna</a>
-        <a href="/transactions" class="sidebar-link"> <Exchange class="text-base" />Transakcje</a>
-        <a href="/transactions/expenses" class="sidebar-link">
-          <ArrowLeft class="text-base" />Wydatki</a
+        <router-link to="/" class="sidebar-link">
+          <Home class="text-base" />Strona główna</router-link
         >
-        <a href="/transactions/incomes" class="sidebar-link">
-          <ArrowRight class="text-base" />Wpływy</a
+        <router-link to="/transactions" class="sidebar-link">
+          <Exchange class="text-base" />Transakcje</router-link
         >
-        <a href="/goals" class="sidebar-link"> <Star class="text-base" />Cele</a>
-        <a href="/budgets" class="sidebar-link"> <Wallet class="text-base" />Budżety</a>
-        <a href="/reports" class="sidebar-link"> <Chart class="text-base" />Raporty</a>
-        <a href="/accounts" class="sidebar-link"> <Bag class="text-base" />Konta</a>
+        <router-link to="/transactions/expenses" class="sidebar-link">
+          <ArrowLeft class="text-base" />Wydatki</router-link
+        >
+        <router-link to="/transactions/incomes" class="sidebar-link">
+          <ArrowRight class="text-base" />Wpływy</router-link
+        >
+        <router-link to="/goals" class="sidebar-link"> <Star class="text-base" />Cele</router-link>
+        <router-link to="/budgets" class="sidebar-link">
+          <Wallet class="text-base" />Budżety</router-link
+        >
+        <router-link to="/reports" class="sidebar-link">
+          <Chart class="text-base" />Raporty</router-link
+        >
+        <router-link to="/accounts" class="sidebar-link">
+          <Bag class="text-base" />Konta</router-link
+        >
       </div>
       <!-- Profil -->
       <div class="flex flex-col gap-1">
         <span class="text-xs font-medium">Profil</span>
-        <a href="/profile" class="sidebar-link"> <User class="text-base" />Profil</a>
-        <a href="/settings" class="sidebar-link"> <Settings class="text-base" />Ustawienia</a>
-        <a href="/help" class="sidebar-link"> <Info class="text-base" />Pomoc</a>
+        <router-link to="/profile" class="sidebar-link">
+          <User class="text-base" />Profil</router-link
+        >
+        <router-link to="/settings" class="sidebar-link">
+          <Settings class="text-base" />Ustawienia</router-link
+        >
+        <router-link to="/help" class="sidebar-link"> <Info class="text-base" />Pomoc</router-link>
       </div>
     </div>
 
     <div>
       <!-- Logout -->
-      <a
-        href="/login"
+      <router-link
+        to="/login"
         class="text-sm flex flex-row w-full items-center gap-2 px-2 py-1 rounded-md hover:bg-background-100 transition-all ease-in-out duration-300"
       >
         <Logout class="text-base" />Wyloguj się
-      </a>
+      </router-link>
     </div>
   </SidebarContainer>
 </template>

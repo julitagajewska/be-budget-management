@@ -1,7 +1,9 @@
 <script lang="ts">
-import { ref } from 'vue'
+import { useAppSettingsStore } from '@stores/AppSettingsStore'
+
 import Sun from '@icons/Sun.vue'
 import Moon from '@icons/Moon.vue'
+import { computed } from 'vue'
 
 export default {
   name: 'MyComponent',
@@ -10,20 +12,21 @@ export default {
     Moon
   },
   setup() {
-    // Data using ref
-    const mode = ref(false)
+    const appSettingsStore = useAppSettingsStore()
 
-    // Data using reactive
-    // const data = reactive({
-    //   description: 'This is a basic Vue component using the Composition API'
-    // })
+    const mode = computed(() => appSettingsStore.getDarkMode)
+    const theme = computed(() => appSettingsStore.getTheme)
 
-    // Method
+    const themeClasses = computed(() =>
+      mode.value ? `${theme.value}-dark` : `${theme.value}-light`
+    )
+    // const theme = computed(() => appSettingsStore.getTheme)
+
     const toggle = () => {
-      mode.value = !mode.value
+      appSettingsStore.toggleDarkMode()
+      console.log(themeClasses.value)
     }
 
-    // Expose data and methods to the template
     return {
       mode,
       toggle
