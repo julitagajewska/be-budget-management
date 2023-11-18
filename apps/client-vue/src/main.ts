@@ -20,7 +20,7 @@ import 'tailwind-config/index.css'
 const app = createApp(App)
 
 // ROUTING
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(),
   routes: routes
 })

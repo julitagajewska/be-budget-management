@@ -12,17 +12,16 @@ export const useUserStore = defineStore('userStore', {
     token: null
   }),
   getters: {
-    isLoggedIn: (state) => !!state.user,
+    isLoggedIn: (state) => !!state.token,
     getUser: (state) => state.user,
     getToken: (state) => state.token
   },
   actions: {
-    login({ user, token }: { user: User; token: string }) {
-      this.user = user
+    login(token: string) {
+      console.log(token)
       this.token = token
     },
     logout() {
-      this.user = null
       this.token = null
     }
   }

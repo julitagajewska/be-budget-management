@@ -17,7 +17,7 @@ import ReportsPage from '../views/reports/ReportsPage.vue'
 import SettingsPage from '../views/general/SettingsPage.vue'
 import HelpPage from '../views/general/HelpPage.vue'
 import LoggedOutPage from '../views/general/LoggedOutPage.vue'
-import UsersProfilePage from '@/views/general/UserSProfilePage.vue'
+import UsersProfilePage from '@/views/general/UsersProfilePage.vue'
 
 export const routes = [
   { path: '/', name: 'Landing', component: LandingPage },

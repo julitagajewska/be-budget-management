@@ -17,6 +17,10 @@ import Logo from '../../components/logo/Logo.vue'
 import DarkModeButton from '../buttons/DarkModeButton.vue'
 import { ref } from 'vue'
 import { Theme, useAppSettingsStore } from '@/stores/AppSettingsStore'
+import { useUserStore } from '@stores/UserStore'
+import { router } from '@/main'
+// import { getAllUsers } from '@api/UserAPI'
+
 // import { useAppSettingsStore } from '@stores/AppSettingsStore'
 
 export default {
@@ -41,6 +45,7 @@ export default {
   },
   setup() {
     const appSettingsStore = useAppSettingsStore()
+    const userStore = useUserStore()
 
     const setTheme = (theme: Theme) => {
       appSettingsStore.setTheme(theme)
@@ -51,17 +56,92 @@ export default {
       open.value = !open.value
     }
 
+    const handleLogout = () => {
+      userStore.logout()
+      router.push('/login')
+    }
+
+    const newTransactionPopup = ref(false)
+
+    const openNewTransactionPopup = () => {
+      newTransactionPopup.value = !newTransactionPopup.value
+      console.log(newTransactionPopup.value)
+    }
+
+    // const handleGetAllUsers = async () => {
+    //   try {
+    //     const fetchedUsers = await getAllUsers()
+    //     console.log(fetchedUsers)
+    //   } catch (error: any) {
+    //     console.error('Error fetching users:', error.message)
+    //   }
+    // }
+
     return {
+      // handleGetAllUsers,
+      handleLogout,
       open,
       toggle,
       setTheme,
-      Theme
+      Theme,
+      newTransactionPopup,
+      openNewTransactionPopup
     }
   }
 }
 </script>
 
 <template>
+  <div
+    v-if="newTransactionPopup"
+    class="fixed top-0 left-0 z-50 w-screen h-screen flex flex-col justify-center items-center bg-black bg-opacity-25"
+  >
+    <div class="w-96 bg-background-50 rounded-2xl shadow-xl px-6 py-6 flex flex-col gap-6">
+      Nowa transakcja
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Tytuł</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Odbiorca</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Kwota</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Czy wydatek</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Czy się powtarza</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Data</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-col w-full">
+        <label htmlFor="mail-input">Opis</label>
+        <input type="text" id="mail-input" />
+      </div>
+      <div class="flex flex-row w-full gap-6">
+        <button
+          @click="openNewTransactionPopup"
+          class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] outline-[2px] outline outline-primary-700 text-primary-800 font-semibold hover:outline-primary-600 hover:text-primary-700 transition-all ease-in-out duration-300"
+        >
+          Anuluj
+        </button>
+        <button
+          @click="openNewTransactionPopup"
+          class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] bg-primary-700 text-text-50 hover:bg-primary-600 transition-all ease-in-out duration-300"
+        >
+          Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
   <SidebarContainer :is-open="open" :toggle-function="toggle">
     <div class="flex flex-col">
       <!-- Logo + dzień noc -->
@@ -72,11 +152,21 @@ export default {
 
       <div class="mb-4">
         <button
+          @click="openNewTransactionPopup"
           class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] bg-primary-700 text-text-50 hover:bg-primary-600 transition-all ease-in-out duration-300"
         >
           <Plus class="text-xl" />Nowa transakcja
         </button>
       </div>
+
+      <!-- <div class="mb-4">
+        <button
+          @click="handleGetAllUsers"
+          class="text-sm flex flex-row w-full items-center justify-center gap-1 px-2 py-1 rounded-[8px] bg-text-500 text-text-50 hover:bg-primary-600 transition-all ease-in-out duration-300"
+        >
+          Get users
+        </button>
+      </div> -->
 
       <div class="mb-4">
         <button
@@ -144,12 +234,12 @@ export default {
 
     <div>
       <!-- Logout -->
-      <router-link
-        to="/login"
+      <button
+        @click="handleLogout"
         class="text-sm flex flex-row w-full items-center gap-2 px-2 py-1 rounded-md hover:bg-background-100 transition-all ease-in-out duration-300"
       >
         <Logout class="text-base" />Wyloguj się
-      </router-link>
+      </button>
     </div>
   </SidebarContainer>
 </template>

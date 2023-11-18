@@ -5,7 +5,9 @@ import ContentContainer from './ContentContainer.vue'
 import NavigationSidebar from '../sidebar/NavigationSidebar.vue'
 import UserDataSidebar from '../sidebar/UserDataSidebar.vue'
 import { computed, ref } from 'vue'
-import { Theme, useAppSettingsStore } from '@stores/AppSettingsStore'
+import { useAppSettingsStore } from '@stores/AppSettingsStore'
+import { useUserStore } from '@stores/UserStore'
+import { getThemeClasses } from '@utils/getThemeClasses'
 
 export default {
   name: 'MyComponent',
@@ -17,57 +19,15 @@ export default {
     UserDataSidebar
   },
   setup() {
+    // User store
+    const userStore = useUserStore()
+    const isLoggedIn = computed(() => userStore.isLoggedIn)
+
     const appSettingsStore = useAppSettingsStore()
     const mode = computed(() => appSettingsStore.getDarkMode)
     const theme = computed(() => appSettingsStore.getTheme)
 
-    const themeClasses = computed(() => {
-      let classes = ''
-
-      switch (theme.value) {
-        case Theme.VUE: {
-          switch (mode.value) {
-            case true: {
-              classes += 'vue-dark'
-              break
-            }
-            case false: {
-              classes += 'vue-light'
-              break
-            }
-          }
-          break
-        }
-        case Theme.REACT: {
-          switch (mode.value) {
-            case true: {
-              classes += 'react-dark'
-              break
-            }
-            case false: {
-              classes += 'react-light'
-              break
-            }
-          }
-          break
-        }
-        case Theme.QWIK: {
-          switch (mode.value) {
-            case true: {
-              classes += 'qwik-dark'
-              break
-            }
-            case false: {
-              classes += 'qwik-light'
-              break
-            }
-          }
-          break
-        }
-      }
-
-      return classes
-    })
+    const themeClasses = computed(() => getThemeClasses(theme.value, mode.value))
 
     const visible = ref(false)
     const naviagtionSidebarOpen = ref(true)
@@ -86,6 +46,7 @@ export default {
     }
 
     return {
+      isLoggedIn,
       mode,
       visible,
       themeClasses,
@@ -101,19 +62,19 @@ export default {
 
 <template>
   <div
-    :class="`${themeClasses} text-text-900 w-full min-h-[100vh] relative bg-background-50 flex flex-col justify-start items-start`"
+    :class="`${themeClasses} text-text-900 font-mulish w-full min-h-[100vh] relative bg-background-50 flex flex-col justify-start items-start`"
   >
     <!-- <button @click="toggleVisibility">Toggle</button>
     <Navbar v-if="visible" /> -->
 
     <div class="flex flex-row justify-between h-full w-full px-5 py-5 gap-5 overflow-auto">
-      <NavigationSidebar />
+      <NavigationSidebar v-if="isLoggedIn" />
 
       <ContentContainer>
         <router-view></router-view>
       </ContentContainer>
 
-      <UserDataSidebar />
+      <UserDataSidebar v-if="isLoggedIn" />
     </div>
   </div>
 </template>

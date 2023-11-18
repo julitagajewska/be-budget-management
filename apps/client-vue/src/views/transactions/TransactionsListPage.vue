@@ -9,34 +9,34 @@ export default {
   <div class="content-container">
     <h1>Transakcje</h1>
     <div class="flex flex-row w-full gap-4 py-4">
-      <a
-        href="/transactions/expenses"
+      <router-link
+        to="/transactions/expenses"
         class="bg-background-200 w-full rounded-lg px-10 py-6 hover:bg-background-100 transition-all ease-in-out duration-300"
-        >Wydatki</a
+        >Wydatki</router-link
       >
-      <a
-        href="/transactions/incomes"
+      <router-link
+        to="/transactions/incomes"
         class="bg-background-200 w-full rounded-lg px-10 py-6 hover:bg-background-100 transition-all ease-in-out duration-300"
-        >Wpływy</a
+        >Wpływy</router-link
       >
     </div>
-    <a
-      href="/transactions/1"
+    <router-link
+      to="/transactions/1"
       class="bg-background-200 w-full rounded-lg px-10 py-6 hover:bg-background-100 transition-all ease-in-out duration-300"
     >
       Transackcja #1
-    </a>
-    <a
-      href="/transactions/2"
+    </router-link>
+    <router-link
+      to="/transactions/2"
       class="bg-background-200 w-full rounded-lg px-10 py-6 hover:bg-background-100 transition-all ease-in-out duration-300"
     >
       Transackcja #2
-    </a>
-    <a
-      href="/transactions/3"
+    </router-link>
+    <router-link
+      to="/transactions/3"
       class="bg-background-200 w-full rounded-lg px-10 py-6 hover:bg-background-100 transition-all ease-in-out duration-300"
     >
       Transackcja #3
-    </a>
+    </router-link>
   </div>
 </template>
