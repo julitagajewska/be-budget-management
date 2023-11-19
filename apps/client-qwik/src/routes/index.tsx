@@ -3,14 +3,15 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (
-    <>
-      <h1>Hi 👋</h1>
+    <div class="qwik-light">
+      <h1 class="font-slab text-5xl">Hi 👋</h1>
+      <h1 class="font-mulish text-primary-400 text-5xl">Hi 👋</h1>
       <p>
         Can't wait to see what you build with qwik!
         <br />
         Happy coding.
       </p>
-    </>
+    </div>
   );
 });
 

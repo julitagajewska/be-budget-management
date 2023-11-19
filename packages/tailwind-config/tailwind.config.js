@@ -18,6 +18,10 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,vue}'],
   theme: {
     extend: {
+      fontFamily: {
+        slab: ['Roboto Slab', 'serif'],
+        mulish: ['Mulish', 'sans-serif'],
+      },
       colors: {
         'text': {
           50: 'var(--text-50)',
