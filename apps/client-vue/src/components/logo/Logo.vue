@@ -2,7 +2,7 @@
 import { ref, reactive } from 'vue'
 
 export default {
-  name: 'MyComponent',
+  name: 'Logo',
   setup() {
     // Data using ref
     const title = ref('My Component')

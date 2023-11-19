@@ -1,10 +1,13 @@
 <script lang="ts">
 import Navbar from '../../components/Navbar.vue'
-import { ref } from 'vue'
 import SidebarContainer from '../sidebar/SidebarContainer.vue'
 import ContentContainer from './ContentContainer.vue'
 import NavigationSidebar from '../sidebar/NavigationSidebar.vue'
 import UserDataSidebar from '../sidebar/UserDataSidebar.vue'
+import { computed, ref } from 'vue'
+import { useAppSettingsStore } from '@stores/AppSettingsStore'
+import { useUserStore } from '@stores/UserStore'
+import { getThemeClasses } from '@utils/getThemeClasses'
 
 export default {
   name: 'MyComponent',
@@ -16,6 +19,16 @@ export default {
     UserDataSidebar
   },
   setup() {
+    // User store
+    const userStore = useUserStore()
+    const isLoggedIn = computed(() => userStore.isLoggedIn)
+
+    const appSettingsStore = useAppSettingsStore()
+    const mode = computed(() => appSettingsStore.getDarkMode)
+    const theme = computed(() => appSettingsStore.getTheme)
+
+    const themeClasses = computed(() => getThemeClasses(theme.value, mode.value))
+
     const visible = ref(false)
     const naviagtionSidebarOpen = ref(true)
     const overviewSidebarOpen = ref(true)
@@ -33,7 +46,10 @@ export default {
     }
 
     return {
+      isLoggedIn,
+      mode,
       visible,
+      themeClasses,
       naviagtionSidebarOpen,
       overviewSidebarOpen,
       toggleVisibility,
@@ -46,19 +62,19 @@ export default {
 
 <template>
   <div
-    class="vue-light text-text-900 w-full min-h-[100vh] relative bg-background-50 flex flex-col justify-start items-start"
+    :class="`${themeClasses} text-text-900 font-mulish w-full min-h-[100vh] relative bg-background-50 flex flex-col justify-start items-start`"
   >
     <!-- <button @click="toggleVisibility">Toggle</button>
     <Navbar v-if="visible" /> -->
 
     <div class="flex flex-row justify-between h-full w-full px-5 py-5 gap-5 overflow-auto">
-      <NavigationSidebar />
+      <NavigationSidebar v-if="isLoggedIn" />
 
       <ContentContainer>
         <router-view></router-view>
       </ContentContainer>
 
-      <UserDataSidebar />
+      <UserDataSidebar v-if="isLoggedIn" />
     </div>
   </div>
 </template>
