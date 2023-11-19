@@ -1,5 +1,5 @@
-const colors = require('tailwindcss/colors');
+const sharedConfig = require('tailwind-config/tailwind.config');
 
 module.exports = {
-  presets: [require('tailwind-config/tailwind.config')],
+  presets: [sharedConfig],
 };
