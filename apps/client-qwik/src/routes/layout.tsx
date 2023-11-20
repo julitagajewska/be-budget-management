@@ -1,6 +1,8 @@
-import { component$, Slot } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
-import PageContainer from "~/components/containers/page-container";
+import { component$, Slot } from '@builder.io/qwik'
+import type { RequestHandler } from '@builder.io/qwik-city'
+import PageContainer from '~/components/containers/page-container'
+import NavigationSidebar from '~/components/sidebar/navigation-sidebar'
+import ContentContainer from '~/components/containers/content-container'
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -9,13 +11,17 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
     // Always serve a cached response by default, up to a week stale
     staleWhileRevalidate: 60 * 60 * 24 * 7,
     // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-    maxAge: 5,
-  });
-};
+    maxAge: 5
+  })
+}
 
 export default component$(() => {
-  return <PageContainer>
-    Tutaj jest layout component
-    <Slot />
-  </PageContainer>;
-});
+  return (
+    <PageContainer>
+      <NavigationSidebar />
+      <ContentContainer>
+        <Slot />
+      </ContentContainer>
+    </PageContainer>
+  )
+})

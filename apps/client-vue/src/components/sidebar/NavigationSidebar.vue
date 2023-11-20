@@ -145,7 +145,7 @@ export default {
   <SidebarContainer :is-open="open" :toggle-function="toggle">
     <div class="flex flex-col">
       <!-- Logo + dzień noc -->
-      <div class="flex fflex-row justify-between items-center mb-2">
+      <div class="flex flex-row justify-between items-center mb-2">
         <Logo class="mb-2" />
         <DarkModeButton />
       </div>
