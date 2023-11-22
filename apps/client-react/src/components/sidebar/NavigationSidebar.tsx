@@ -1,19 +1,6 @@
-import React from 'react'
 import SidebarContainer from './SidebarContainer'
-import { Link } from 'react-router-dom'
-import { routes } from '../../routing/routes'
-
-// TODO: If transactions added, change label to key
-type SidebarLinkType = {
-  to: string
-  label: string
-  links?: SidebarLinkType[]
-}
-
-type SidebarSectionType = {
-  label: string
-  links: SidebarLinkType[]
-}
+import SidebarLink from '../links/SidebarLink'
+import { SidebarLinkType, SidebarSectionType } from 'shared-types'
 
 const SIDEBAR_LNKS: SidebarSectionType[] = [
   {
@@ -24,8 +11,9 @@ const SIDEBAR_LNKS: SidebarSectionType[] = [
         to: '/transactions',
         label: 'Transakcje',
         links: [
+          { to: '/transactions', label: 'Wszystkie' },
           { to: '/incomes', label: 'Wpływy' },
-          { to: '/expenses', label: 'Wpływy' }
+          { to: '/expenses', label: 'Wydatki' }
         ]
       },
       { to: '/goals', label: 'Cele' },
@@ -50,23 +38,21 @@ const NavigationSidebar = () => {
       <div>
         <div>Logo</div>
         <div>Nowa transakcja</div>
-        <div className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-2 list-none">
           {SIDEBAR_LNKS.map((s: SidebarSectionType) => {
             return (
               <div>
                 <span>{s.label}</span>
                 {s.links.map((l: SidebarLinkType) => (
-                  <Link to={l.to} className="sidebar-link">
-                    {l.label}
-                  </Link>
+                  <SidebarLink link={l} tabIndex={0} />
                 ))}
               </div>
             )
           })}
-        </div>
+        </ul>
       </div>
       <div>
-        <button>Wyloguj się</button>
+        <button className="sidebar-button">Wyloguj się</button>
       </div>
     </SidebarContainer>
   )
