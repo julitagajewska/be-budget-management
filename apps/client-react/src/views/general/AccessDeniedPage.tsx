@@ -1,9 +1,9 @@
 import React from 'react'
 
-const AccessDenied = () => {
+const AccessDeniedPage = () => {
   return (
     <div>Odmowa dostępu</div>
   )
 }
 
-export default AccessDenied
+export default AccessDeniedPage

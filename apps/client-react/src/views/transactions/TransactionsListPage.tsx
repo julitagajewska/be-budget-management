@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TransactionsList = () => {
+const TransactionsListPage = () => {
   return (
     <div>Lista transakcji użytkownika</div>
   )
 }
 
-export default TransactionsList
+export default TransactionsListPage
