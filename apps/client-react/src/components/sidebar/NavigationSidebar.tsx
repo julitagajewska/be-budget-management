@@ -6,14 +6,14 @@ const SIDEBAR_LNKS: SidebarSectionType[] = [
   {
     label: 'Menu',
     links: [
-      { to: '/', label: 'Strona główna' },
+      { to: '/home', label: 'Strona główna' },
       {
         to: '/transactions',
         label: 'Transakcje',
         links: [
           { to: '/transactions', label: 'Wszystkie' },
-          { to: '/incomes', label: 'Wpływy' },
-          { to: '/expenses', label: 'Wydatki' }
+          { to: '/transactions/incomes', label: 'Wpływy' },
+          { to: '/transactions/expenses', label: 'Wydatki' }
         ]
       },
       { to: '/goals', label: 'Cele' },

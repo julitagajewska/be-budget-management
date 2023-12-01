@@ -1,9 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPageName } from '../../redux/slices/pageHeaderSlice'
 
 const GoalPage = () => {
-  return (
-    <div>Cel - ID: ...</div>
-  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPageName('Szczegóły celu'))
+  }, [])
+
+  return <div>Cel - ID: ...</div>
 }
 
 export default GoalPage

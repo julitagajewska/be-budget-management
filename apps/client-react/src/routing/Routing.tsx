@@ -20,15 +20,13 @@ import IncomesPage from '../views/transactions/IncomesPage'
 import TransactionPage from '../views/transactions/TransactionPage'
 import AccessDeniedPage from '../views/general/AccessDeniedPage'
 import TransactionsListPage from '../views/transactions/TransactionsListPage'
-import { routes } from './routes'
+import WelcomePage from '../views/general/WelcomePage'
 
 const Routing = () => {
   return (
     <Routes>
-      {routes.map((r) => (
-        <Route path={r.to} element={r.component} />
-      ))}
-      {/* <Route path="" element={<HomePage />} />
+      <Route path="/" element={<WelcomePage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/access-denied" element={<AccessDeniedPage />} />
@@ -47,7 +45,7 @@ const Routing = () => {
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/help" element={<HelpPage />} />
       <Route path="/logged-out" element={<LoggedOutPage />} />
-      <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }

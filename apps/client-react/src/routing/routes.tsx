@@ -17,7 +17,7 @@ export type RouteType = {
 
 export const routes: RouteType[] = [
   {
-    to: '/',
+    to: '/home',
     label: 'Strona główna',
     component: <HomePage />
   },

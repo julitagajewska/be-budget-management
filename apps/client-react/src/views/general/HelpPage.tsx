@@ -1,9 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { setPageName } from '../../redux/slices/pageHeaderSlice'
+import { useDispatch } from 'react-redux'
 
 const HelpPage = () => {
-  return (
-    <div>Pomoc</div>
-  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPageName('Pomoc'))
+  }, [])
+
+  return <div>Pomoc</div>
 }
 
 export default HelpPage

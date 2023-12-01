@@ -1,9 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPageName } from '../../redux/slices/pageHeaderSlice'
 
 const AccountPage = () => {
-  return (
-    <div>Transakcja - ID: ...</div>
-  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPageName('Szczegóły konta'))
+  }, [])
+
+  return <div>Konto - ID: ...</div>
 }
 
 export default AccountPage

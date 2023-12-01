@@ -1,9 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPageName } from '../../redux/slices/pageHeaderSlice'
 
 const GoalsListPage = () => {
-  return (
-    <div>Lista celów użytkownika</div>
-  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPageName('Cele'))
+  }, [])
+
+  return <div>Lista celów użytkownika</div>
 }
 
 export default GoalsListPage

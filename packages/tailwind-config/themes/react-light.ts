@@ -1,6 +1,6 @@
 export const reactLight = {
   text: {
-    50: '#e9eefc',
+    50: '#ffffff',
     100: '#d2dcf9',
     200: '#a5baf3',
     300: '#7897ed',

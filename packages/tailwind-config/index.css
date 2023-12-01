@@ -2,10 +2,15 @@
 
 @import "./classes/layouts.css";
 @import "./classes/links.css";
+@import "./classes/shadows.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ body {
+   font-size:14px;
+ }
 
 
 /* SHADOWS */

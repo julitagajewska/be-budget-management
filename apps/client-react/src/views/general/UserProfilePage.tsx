@@ -1,9 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPageName } from '../../redux/slices/pageHeaderSlice'
 
 const UserProfilePage = () => {
-  return (
-    <div>Profil użytkownika</div>
-  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPageName('Profil użytkownika'))
+  }, [])
+
+  return <div>Profil użytkownika</div>
 }
 
 export default UserProfilePage

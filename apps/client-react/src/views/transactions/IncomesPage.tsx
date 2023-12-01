@@ -1,9 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { setPageName } from '../../redux/slices/pageHeaderSlice'
+import { useDispatch } from 'react-redux'
 
 const IncomesPage = () => {
-  return (
-    <div>Lista dochodów</div>
-  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPageName('Dochody'))
+  }, [])
+
+  return <div>Lista dochodów</div>
 }
 
 export default IncomesPage
