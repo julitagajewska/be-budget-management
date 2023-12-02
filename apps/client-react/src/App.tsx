@@ -5,12 +5,13 @@ import OverviewSidebar from './components/sidebar/OverviewSidebar'
 import Routing from './routing/Routing'
 import { useLocation } from 'react-router-dom'
 import PageHeader from './components/page-header/PageHeader'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pl'
 
 const App = () => {
   const location = useLocation()
-  console.log(location.pathname)
-
   const locationsWithoutsidebars = ['/', '/login', '/register']
+  dayjs.locale('pl')
 
   return (
     <PageContainer>

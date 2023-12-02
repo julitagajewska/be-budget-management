@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import pageHeaderReducer from './slices/pageHeaderSlice'
+import monthPickerReducer from './slices/monthPickerSlice'
 
 export const store = configureStore({
   reducer: {
-    pageHeader: pageHeaderReducer
+    pageHeader: pageHeaderReducer,
+    monthPicker: monthPickerReducer
   }
 })
 
