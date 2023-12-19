@@ -7,6 +7,6 @@ export default {
 
 <template>
   <div class="content-container">
-    <h1>Pomoc</h1>
+    <h1>Odmowa dostępu</h1>
   </div>
 </template>

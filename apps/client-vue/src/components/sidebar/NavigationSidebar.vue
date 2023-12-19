@@ -19,9 +19,6 @@ import { ref } from 'vue'
 import { Theme, useAppSettingsStore } from '@/stores/AppSettingsStore'
 import { useUserStore } from '@stores/UserStore'
 import { router } from '@/main'
-// import { getAllUsers } from '@api/UserAPI'
-
-// import { useAppSettingsStore } from '@stores/AppSettingsStore'
 
 export default {
   name: 'NavigationSidebar',

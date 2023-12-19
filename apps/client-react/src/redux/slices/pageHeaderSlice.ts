@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export type PageHeaderButtonType =
   | 'DASHBOARD_SETTINGS'
@@ -9,6 +8,7 @@ export type PageHeaderButtonType =
   | 'GOAL'
   | 'ACCOUNT'
   | 'REPORTS'
+  | 'EDIT_ACCOUNT'
 
 export interface PageHeaderState {
   pageName: string

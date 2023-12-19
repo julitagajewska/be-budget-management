@@ -2,7 +2,7 @@ import React, { RefObject, useEffect, useRef, useState } from 'react'
 import { ArrowLeft, Envelope, Lock, User, UserOutlined } from '../../components/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { register } from '../../api'
-import Input from '../../components/form/Input'
+import Input from '../../components/inputs/Input'
 import Button from '../../components/buttons/Button'
 
 type MessageType = {

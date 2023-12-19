@@ -3,6 +3,9 @@ import { RootState } from '../../redux/store'
 import MonthPicker from '../month-picker/MonthPicker'
 import { PageHeaderButtonType } from '../../redux/slices/pageHeaderSlice'
 import DashboardSettingsButton from './buttons/DashboardSettingsButton'
+import AddAccountButton from './buttons/AddAccountButton'
+import AddTransactionButton from './buttons/AddTransactionButton'
+import EditAccountButton from './buttons/EditAccountButton'
 
 const PageHeader = () => {
   // Check if logged in
@@ -14,18 +17,19 @@ const PageHeader = () => {
 
   const buttons: Record<PageHeaderButtonType, React.ReactNode> = {
     DASHBOARD_SETTINGS: <DashboardSettingsButton />,
-    TRANSACTION: undefined,
+    TRANSACTION: <AddTransactionButton />,
     INCOME: undefined,
     EXPENSE: undefined,
     GOAL: undefined,
-    ACCOUNT: undefined,
-    REPORTS: undefined
+    ACCOUNT: <AddAccountButton />,
+    REPORTS: undefined,
+    EDIT_ACCOUNT: <EditAccountButton />
   }
 
   if (isLoggedIn)
     return (
       <div className="h-10 w-full flex flex-row justify-between items-center">
-        <div className="w-36">
+        <div className="w-42">
           <h1 className="text-lg font-semibold">{pageName}</h1>
         </div>
 

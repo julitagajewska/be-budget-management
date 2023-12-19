@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Envelope } from '../../components/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import Input from '../../components/form/Input'
+import Input from '../../components/inputs/Input'
 import { Lock } from '../../components/icons'
 import Button from '../../components/buttons/Button'
 import { login } from '../../api/auth'

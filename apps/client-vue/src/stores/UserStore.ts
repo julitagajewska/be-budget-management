@@ -8,8 +8,13 @@ interface UserState {
 
 export const useUserStore = defineStore('userStore', {
   state: (): UserState => ({
-    user: null,
-    token: null
+    user: {
+      id: '',
+      name: '',
+      surname: '',
+      email: ''
+    },
+    token: 'example token'
   }),
   getters: {
     isLoggedIn: (state) => !!state.token,

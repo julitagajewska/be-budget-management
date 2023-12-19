@@ -15,9 +15,9 @@ import BudgetsListPage from '../views/budgets/BudgetsListPage.vue'
 import BudgetPage from '../views/budgets/BudgetPage.vue'
 import ReportsPage from '../views/reports/ReportsPage.vue'
 import SettingsPage from '../views/general/SettingsPage.vue'
-import HelpPage from '../views/general/HelpPage.vue'
+// import HelpPage from '../views/general/HelpPage.vue'
 import LoggedOutPage from '../views/general/LoggedOutPage.vue'
-import UsersProfilePage from '@/views/general/UsersProfilePage.vue'
+import UsersProfilePage from '../views/general/UsersProfilePage.vue'
 
 export const routes = [
   { path: '/', name: 'Landing', component: LandingPage },
@@ -37,7 +37,7 @@ export const routes = [
   { path: '/reports', name: 'Reports', component: ReportsPage },
   { path: '/profile', name: 'Profile', component: UsersProfilePage },
   { path: '/settings', name: 'Settings', component: SettingsPage },
-  { path: '/help', name: 'Help', component: HelpPage },
+  // { path: '/help', name: 'Help', component: HelpPage },
   { path: '/logged-out', name: 'LoggedOut', component: LoggedOutPage },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage }
 ]

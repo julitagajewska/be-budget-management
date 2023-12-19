@@ -28,7 +28,7 @@ const Modal = ({ children, handleClose }: React.PropsWithChildren<ModalProps>) =
       <div className="w-screen h-screen fixed z-10 top-0 left-0 bg-black bg-opacity-25 flex flex-col justify-center items-center">
         <div
           ref={popupRef}
-          className="bg-background-50 left-auto rounded-lg shadow-md px-8 py-6 flex flex-col justify-start gap-4"
+          className="bg-background-50 w-96 left-auto rounded-lg shadow-md px-8 py-6 flex flex-col justify-start gap-4"
         >
           {children}
         </div>

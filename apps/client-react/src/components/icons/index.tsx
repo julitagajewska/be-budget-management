@@ -12,6 +12,19 @@ import { Bag } from './Bag'
 import { TrendDown } from './TrendDown'
 import { TrendUp } from './TrendUp'
 import { Savings } from './Savings'
+import { Plus } from './Plus'
+import { Label } from './Label'
+import { Money } from './Money'
+import { Badge } from './Badge'
+import { Cross } from './Cross'
+import { LabelPlus } from './LabelPlus'
+import { Search } from './Search'
+import { Filter } from './Filter'
+import { Edit } from './Edit'
+import { Check } from './Check'
+import { Trash } from './Trash'
+import { Alarm } from './Alarm'
+import { Other } from './Other'
 
 export {
   CaretUp,
@@ -27,5 +40,18 @@ export {
   Bag,
   TrendUp,
   TrendDown,
-  Savings
+  Savings,
+  Plus,
+  Label,
+  Money,
+  Badge,
+  Cross,
+  LabelPlus,
+  Search,
+  Filter,
+  Edit,
+  Check,
+  Trash,
+  Alarm,
+  Other
 }

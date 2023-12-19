@@ -11,7 +11,7 @@
 }
 
 .content-container {
-  @apply w-full text-text-900 flex flex-col py-6;
+  @apply w-full text-text-900 flex flex-col py-4;
 }
 
 .sidebar-container {

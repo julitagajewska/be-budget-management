@@ -1,11 +1,34 @@
-import React, { HTMLInputTypeAttribute, ReactNode, useState } from 'react'
+import React, { HTMLInputTypeAttribute, useState } from 'react'
+
+type Variant = 'small' | 'medium'
+const styles: Record<
+  Variant,
+  { container: string; label: string; input: string; icon: string; error: string }
+> = {
+  small: {
+    container: 'gap-[4px]',
+    label: 'pb-0 font-medium text-xs pl-1',
+    input: 'py-[6px] pl-[34px]',
+    icon: 'top-[28px] text-[16px] left-[10px]',
+    error: 'text-xs pl-1 text-red-600'
+  },
+  medium: {
+    container: 'gap-1',
+    label: 'pb-1 font-bold pl-1',
+    input: 'py-2 pl-10',
+    icon: 'top-[36px] text-[20px] left-3',
+    error: 'text-sm font-medium pl-1 text-red-600'
+  }
+}
 
 type InputProps = {
-  label: string
+  label?: string
+  value: string | number | undefined | null
   type: HTMLInputTypeAttribute
   placeholder: string
   Icon?: React.ElementType
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  variant?: Variant
 }
 
 const highlightClasses = {
@@ -16,11 +39,19 @@ const highlightClasses = {
   peerError: 'text-red-400 peer-hover:text-red-600 peer-focus:text-red-600',
   labelBase: 'text-background-600',
   labelFocus: 'text-primary-600',
-  labelError: 'text-red-400'
+  labelError: 'text-red-600'
 }
 
-const Input = ({ label, type, placeholder, Icon, handleChange }: InputProps) => {
-  const [value, setValue] = useState('')
+const Input = ({
+  label,
+  value,
+  type,
+  placeholder,
+  Icon,
+  handleChange,
+  variant = 'small'
+}: InputProps) => {
+  // const [value, setValue] = useState('')
   const [errorMessage, setErrorMessage] = useState<string[]>([
     // 'Here is very long error message.'
     // 'Here is very long error message. Here is very long error message.',
@@ -30,27 +61,31 @@ const Input = ({ label, type, placeholder, Icon, handleChange }: InputProps) => 
   const [labelClass, setLabelClass] = useState<keyof typeof highlightClasses>('labelBase')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = event.target.value
-    setValue(input)
     handleChange(event)
   }
 
   return (
-    <div className="flex flex-col relative w-full gap-1">
-      <label
-        htmlFor={`${label}-input-id`}
-        className={`text-sm font-bold pb-1 ${highlightClasses[labelClass]}`}
-      >
-        {label}
-      </label>
+    <div className={`flex flex-col relative w-full ${styles[variant]['container']}`}>
+      {label && (
+        <label
+          htmlFor={`${label}-input-id`}
+          className={`text-sm ${styles[variant]['label']} ${
+            !errorMessage.length ? highlightClasses[labelClass] : highlightClasses.labelError
+          }`}
+        >
+          {label}
+        </label>
+      )}
+
       <input
+        value={value ? value : ''}
         type={type}
         id={`${label}-input-id`}
         placeholder={placeholder}
         onInput={handleInputChange}
         onFocus={() => setLabelClass('labelFocus')}
         onBlur={() => setLabelClass('labelBase')}
-        className={`peer pl-10 py-2 text-sm rounded-md custom-input ${
+        className={`peer text-sm rounded-md custom-input ${styles[variant]['input']} ${
           !errorMessage.length ? highlightClasses.base : highlightClasses.error
         }`}
       />
@@ -58,13 +93,13 @@ const Input = ({ label, type, placeholder, Icon, handleChange }: InputProps) => 
         <Icon
           className={`${
             !errorMessage.length ? highlightClasses.peerBase : highlightClasses.peerError
-          } absolute top-[36px] left-3 text-lg`}
+          } ${styles[variant]['icon']} ${!label ? 'top-[8px]' : ''} absolute`}
         />
       )}
       {errorMessage && (
         <ul>
           {errorMessage.map((e) => (
-            <li className="text-sm font-medium text-red-600">{e}</li>
+            <li className={`${styles[variant]['error']}`}>{e}</li>
           ))}
         </ul>
       )}
