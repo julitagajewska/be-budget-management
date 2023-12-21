@@ -49,14 +49,6 @@ const ManageTransactionModal = ({
 }: ManageTransactionModalProps) => {
   // USER DATA
   const currentUser = useSelector((state: RootState) => state.currentUser.currentUser)
-  // const {
-  //   data: categories,
-  //   isLoading,
-  //   isSuccess,
-  //   isError
-  // } = useGetUsersCategoriesQuery({
-  //   id: currentUser?.id
-  // })
 
   // FORM STATE
   const [category, setCategory] = useState<string | undefined>(undefined) // Category ID
@@ -79,7 +71,7 @@ const ManageTransactionModal = ({
   }
 
   const handleCategoryClose = () => {
-    handleOpen()
+    if (handleOpen) handleOpen()
     setCategoryOpen(false)
   }
 
@@ -190,7 +182,11 @@ const ManageTransactionModal = ({
               checked={isRecurring}
               handleChange={setIsRecurring}
             />
-            <SelectDate value={date} handleChange={(e) => handleValueChange(e, setDate)} />
+            <SelectDate
+              value={date ? date : ''}
+              handleChange={(e) => handleValueChange(e, setDate)}
+              id="select-transaction-date"
+            />
             <TextArea
               label="Opis"
               id="description-text-area"

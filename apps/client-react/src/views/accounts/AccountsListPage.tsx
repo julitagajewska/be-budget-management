@@ -6,6 +6,7 @@ import { useGetUsersAccountsQuery } from '../../redux/api/slices/accountSlice'
 import AccountTile from '../../components/tile/AccountTile'
 import ContentContainer from '../../components/containers/ContentContainer'
 import AddAccountButton from '../../components/page-header/buttons/AddAccountButton'
+import { ToastContainer } from 'react-toastify'
 
 const AccountsListPage = () => {
   const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const AccountsListPage = () => {
       <div className="grid grid-cols-3 gap-6 mt-4">
         {data?.map((a) => <AccountTile account={a} />)}
       </div>
+      <ToastContainer />
     </ContentContainer>
   )
 }

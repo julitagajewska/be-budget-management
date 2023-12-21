@@ -5,13 +5,16 @@ import {
 } from '../../redux/api/slices/categorySlice'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
-import Checkbox from '../inputs/Checkbox'
 import React, { useEffect, useState } from 'react'
 import { CategoryDTO, CategoryType } from 'shared-types'
 import Button from '../buttons/Button'
-import { ArrowLeft, Cross, Plus } from '../icons'
+import { Plus } from '../icons'
 import Input from '../inputs/Input'
 import Select from '../inputs/Select'
+import ModalHeader from './sections/ModalHeader'
+import Radio from '../inputs/Radio'
+import TableHeadCell from '../table/TableHeadCell'
+import CategoriesTableRow from '../table/CategoriesTableRow'
 
 type ManageCategoriesModalProps = {
   open: boolean
@@ -20,61 +23,9 @@ type ManageCategoriesModalProps = {
 
 const ManageCategoriesModal = ({ open, handleClose }: ManageCategoriesModalProps) => {
   const currentUser = useSelector((state: RootState) => state.currentUser.currentUser)
-  const {
-    data: categories,
-    isLoading,
-    isSuccess,
-    isError
-  } = useGetUsersCategoriesQuery({
+  const { data: categories } = useGetUsersCategoriesQuery({
     id: currentUser?.id
   })
-
-  const [selectedTypes, setSelectedTypes] = useState<CategoryType[]>([])
-
-  const [accountsType, setAccountsType] = useState(false)
-  const [transactionsType, setTransactionsType] = useState(false)
-  const [goalsType, setGoalsType] = useState(false)
-
-  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>, value: CategoryType) => {
-    if (e.target.checked) {
-      setSelectedTypes([...selectedTypes, value])
-    } else {
-      setSelectedTypes(selectedTypes.filter((t) => t !== value))
-    }
-  }
-
-  const translationMap = {
-    ACCOUNT: 'Konta',
-    TRANSACTION: 'Transakcje',
-    GOAL: 'Cele'
-  }
-
-  const removeValue = (array: CategoryType[], value: CategoryType) =>
-    array.filter((e) => e !== value)
-
-  useEffect(() => {
-    if (accountsType) {
-      setSelectedTypes([...selectedTypes, 'ACCOUNT'])
-    } else {
-      setSelectedTypes(removeValue(selectedTypes, 'ACCOUNT'))
-    }
-  }, [accountsType])
-
-  useEffect(() => {
-    if (transactionsType) {
-      setSelectedTypes([...selectedTypes, 'TRANSACTION'])
-    } else {
-      setSelectedTypes(removeValue(selectedTypes, 'TRANSACTION'))
-    }
-  }, [transactionsType])
-
-  useEffect(() => {
-    if (goalsType) {
-      setSelectedTypes([...selectedTypes, 'GOAL'])
-    } else {
-      setSelectedTypes(removeValue(selectedTypes, 'GOAL'))
-    }
-  }, [goalsType])
 
   const [selectedTypeId, setSelectedTypeId] = useState<number | undefined>(undefined)
   const [name, setName] = useState<string | undefined>(undefined)
@@ -113,106 +64,113 @@ const ManageCategoriesModal = ({ open, handleClose }: ManageCategoriesModalProps
       }
 
       createCategory(newCategory)
-      // setName('')
-      // setSelectedTypeId(0)
+      setName('')
+      setSelectedTypeId(0)
     }
   }
+
+  const [selectedType, setSelectedType] = useState<CategoryType | 'ALL'>('ACCOUNT')
+  const [visibleCategories, setVisibleCategories] = useState<CategoryDTO[]>([])
+
+  useEffect(() => {
+    if (categories) {
+      if (selectedType === 'ALL') {
+        setVisibleCategories(categories)
+        return
+      }
+      let filteredCategories = categories.filter((c) => c.categoryType === selectedType)
+      setVisibleCategories(filteredCategories)
+    }
+  }, [categories, selectedType])
 
   return (
     <>
       {open && (
-        <Modal handleClose={handleClose}>
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-row justify-between items-center w-full">
-              <h1 className="text-lg font-bold">Kategorie</h1>
-              <Button
-                variant="icon-only"
-                color="neutral"
-                size="small"
-                IconLeft={Cross}
-                onClick={handleClose}
-              />
-            </div>
+        <Modal handleClose={handleClose} width="w-fit">
+          <ModalHeader handleClose={handleClose} title={'Kategorie'} />
 
+          <div className="flex flex-col max-h-[500px] overflow-y-auto gap-6 pr-4 pb-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-sm font-bold">Rodzaj kategorii</h2>
-              <div className="flex flex-row gap-8">
-                <Checkbox
+              <h3 className="text-sm font-bold text-background-800">Rodzaj kategorii</h3>
+              <div className="flex flex-row w-full gap-8">
+                <Radio
+                  checked={selectedType === 'ACCOUNT'}
+                  value={'ACCOUNT'}
+                  name={'category_type'}
                   label={'Konta'}
-                  id={'accounts-category-checkbox'}
-                  checked={accountsType}
-                  handleChange={setAccountsType}
+                  id={'account-category-type-radio'}
+                  handleChange={(e) => setSelectedType(e.target.value as CategoryType)}
                 />
-                <Checkbox
+                <Radio
+                  value={'TRANSACTION'}
+                  name={'category_type'}
                   label={'Transakcje'}
-                  id={'accounts-category-checkbox'}
-                  checked={transactionsType}
-                  handleChange={setTransactionsType}
+                  id={'transaction-category-type-radio'}
+                  handleChange={(e) => setSelectedType(e.target.value as CategoryType)}
                 />
-                <Checkbox
+                <Radio
+                  value={'GOAL'}
+                  name={'category_type'}
                   label={'Cele'}
-                  id={'accounts-category-checkbox'}
-                  checked={goalsType}
-                  handleChange={setGoalsType}
+                  id={'transaction-category-type-radio'}
+                  handleChange={(e) => setSelectedType(e.target.value as CategoryType)}
+                />
+                <Radio
+                  value={'ALL'}
+                  name={'category_type'}
+                  label={'Wszystkie'}
+                  id={'all-category-type-radio'}
+                  handleChange={() => setSelectedType('ALL')}
                 />
               </div>
             </div>
 
-            {selectedTypes.length !== 0 ? (
-              <div className="flex flex-col gap-2">
-                <h2 className="text-sm font-bold">Lista kategorii</h2>
-                <div>
-                  {selectedTypes.map((t) => {
-                    type ObjectKey = keyof typeof translationMap
-                    const key = t as ObjectKey
+            <div className="w-full">
+              <h3 className="text-sm font-bold text-background-800">Lista kategorii</h3>
+              <table>
+                <thead>
+                  <tr className="border-b-2 w-full text-xs">
+                    <TableHeadCell label={'#'} align="left" />
+                    <TableHeadCell label={'Nazwa'} align="left" />
+                    <TableHeadCell label={'Typ'} />
+                    <TableHeadCell label={'Akcja'} />
+                  </tr>
+                </thead>
 
-                    return (
-                      <div className="flex flex-col pb-2 text-sm">
-                        <h3 className="text-sm font-semibold">{translationMap[key]}</h3>
-                        <div className="flex flex-col pl-2">
-                          {categories
-                            ?.filter((c) => c.categoryType === t)
-                            .map((c) => {
-                              return <span>{c.name}</span>
-                            })}
-                        </div>
-                      </div>
-                    )
-                  })}
+                <tbody>
+                  {visibleCategories.map((c, i) => (
+                    <CategoriesTableRow category={c} index={i} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-background-800">Nowa kategoria</h3>
+              <div className="flex flex-col gap-2 pt-2">
+                <Input
+                  value={name}
+                  type={'text'}
+                  placeholder={'Podaj nazwę kategorii ...'}
+                  handleChange={(e) => setName(e.target.value)}
+                />
+                <Select
+                  options={typeOptions}
+                  placeholder={'Wybierz typ kategorii ...'}
+                  handleSelect={handleTypeSelect}
+                  value={selectedTypeId}
+                />
+                <div className="flex flex-row justify-center items-center w-full pt-2">
+                  <Button
+                    text="Dodaj kategorię"
+                    onClick={handleAdd}
+                    IconLeft={Plus}
+                    color="primary"
+                    variant="filled"
+                    size="small"
+                  />
                 </div>
               </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                <h2 className="text-sm font-bold">Lista kategorii</h2>
-                <span className="text-xs text-background-600">
-                  Zaznacz rodzaj, aby podejrzeć przypisane do niego kategorie
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <h2 className="text-sm font-bold">Nowa kategoria</h2>
-            <Input
-              value={name}
-              type={'text'}
-              placeholder={'Podaj nazwę kategorii ...'}
-              handleChange={(e) => setName(e.target.value)}
-            />
-            <Select
-              options={typeOptions}
-              placeholder={'Wybierz typ kategorii ...'}
-              handleSelect={handleTypeSelect}
-              value={selectedTypeId}
-            />
-            <div className="flex flex-row justify-center items-center w-full">
-              <Button
-                text="Dodaj kategorię"
-                onClick={handleAdd}
-                IconLeft={Plus}
-                color="primary"
-                variant="filled"
-                size="small"
-              />
             </div>
           </div>
         </Modal>

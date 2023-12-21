@@ -1,6 +1,6 @@
 type ModalProps = {
   open: boolean
-  handleOpen: () => void
+  handleOpen?: () => void
   handleClose: () => void
 }
 

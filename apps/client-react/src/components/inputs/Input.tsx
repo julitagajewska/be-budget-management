@@ -7,8 +7,8 @@ const styles: Record<
 > = {
   small: {
     container: 'gap-[4px]',
-    label: 'pb-0 font-medium text-xs pl-1',
-    input: 'py-[6px] pl-[34px]',
+    label: 'pb-0 font-medium text-xs ',
+    input: 'py-[6px]',
     icon: 'top-[28px] text-[16px] left-[10px]',
     error: 'text-xs pl-1 text-red-600'
   },
@@ -29,6 +29,7 @@ type InputProps = {
   Icon?: React.ElementType
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   variant?: Variant
+  min?: number
 }
 
 const highlightClasses = {
@@ -49,7 +50,8 @@ const Input = ({
   placeholder,
   Icon,
   handleChange,
-  variant = 'small'
+  variant = 'small',
+  min
 }: InputProps) => {
   // const [value, setValue] = useState('')
   const [errorMessage, setErrorMessage] = useState<string[]>([
@@ -81,11 +83,12 @@ const Input = ({
         value={value ? value : ''}
         type={type}
         id={`${label}-input-id`}
+        min={min}
         placeholder={placeholder}
         onInput={handleInputChange}
         onFocus={() => setLabelClass('labelFocus')}
         onBlur={() => setLabelClass('labelBase')}
-        className={`peer text-sm rounded-md custom-input ${styles[variant]['input']} ${
+        className={`peer text-sm rounded-md custom-input pl-[6px] ${styles[variant]['input']} ${
           !errorMessage.length ? highlightClasses.base : highlightClasses.error
         }`}
       />
@@ -93,7 +96,7 @@ const Input = ({
         <Icon
           className={`${
             !errorMessage.length ? highlightClasses.peerBase : highlightClasses.peerError
-          } ${styles[variant]['icon']} ${!label ? 'top-[8px]' : ''} absolute`}
+          } ${styles[variant]['icon']} ${!label ? 'top-[8px]' : ''} absolute pl-[34px]`}
         />
       )}
       {errorMessage && (

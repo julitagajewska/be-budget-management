@@ -7,14 +7,14 @@ import { useGetAccountQuery } from '../../redux/api/slices/accountSlice'
 import { RootState } from '../../redux/store'
 import { useGetUsersCategoriesQuery } from '../../redux/api/slices/categorySlice'
 import TextWithDescription from '../../components/text/TextWithDescription'
-import { CategoryDTO } from 'shared-types'
+import { CategoryDTO, TransactionDTO } from 'shared-types'
 import SelectGraph from '../../components/inputs/SelectGraph'
 import SelectDate from '../../components/inputs/SelectDate'
 import Checkbox from '../../components/inputs/Checkbox'
 import Button from '../../components/buttons/Button'
 import Searchbar from '../../components/inputs/Searchbar'
 import { handleValueChange } from '../../utils'
-import { Alarm, ArrowLeft, Check, Filter, Other, Plus } from '../../components/icons'
+import { ArrowLeft, Filter, Plus } from '../../components/icons'
 import TableHeadCell from '../../components/table/TableHeadCell'
 import { useGetUsersTransactionsQuery } from '../../redux/api/slices/transactionSlice'
 import ManageTransactionModal from '../../components/modal/ManageTransactionModal'
@@ -34,6 +34,8 @@ import Radio from '../../components/inputs/Radio'
 import Tooltip from '../../components/tooltip/Tooltip'
 import { BarChart } from '../../components/graph/BarChart'
 import dayjs from 'dayjs'
+import TransactionsTableRow from '../../components/table/TransactionsTableRow'
+import FilterTransactionsMenu from '../../components/menu/FilterTransactionsMenu'
 
 const AccountPage = () => {
   ChartJS.register(ArcElement, ChartTooltip, Legend, CategoryScale, LinearScale, BarElement)
@@ -43,6 +45,7 @@ const AccountPage = () => {
   const { id } = useParams()
   const currentUser = useSelector((state: RootState) => state.currentUser.currentUser)
   const [accountCategory, setAccountCategory] = useState<CategoryDTO | null>(null)
+  const [transactionCategories, setTransactionCategories] = useState<CategoryDTO[]>([])
 
   // ACCOUNT
   const { data: account, isSuccess: isAccountSuccess } = useGetAccountQuery({
@@ -58,6 +61,21 @@ const AccountPage = () => {
   const { data: transactions } = useGetUsersTransactionsQuery({
     id: currentUser?.id
   })
+
+  const [accountTransactions, setAccountTransactions] = useState<TransactionDTO[]>([])
+  const [filteredTransactions, setFilteredTransactions] = useState<TransactionDTO[]>([])
+  const [visibleTransactions, setVisibleTransactions] = useState<TransactionDTO[]>([])
+
+  useEffect(() => {
+    if (transactions) {
+      let accountTransactions = transactions?.filter((t) => t.accountId === id)
+      let ids = accountTransactions.map((t) => t.categoryId)
+      let filteredCategories = categories?.filter((c) => ids.includes(c.id))
+      setTransactionCategories(filteredCategories || [])
+      setAccountTransactions(accountTransactions)
+      setVisibleTransactions(accountTransactions)
+    }
+  }, [transactions])
 
   useEffect(() => {
     dispatch(
@@ -113,6 +131,36 @@ const AccountPage = () => {
 
   // FILTERING MENU
   const [filterMenuOpen, setFilterMenuOpen] = useState(true)
+
+  // useEffect(() => {
+  //   if(filteredTransactions)
+  // }, [filteredTransactions])
+
+  // SEARCHBAR
+
+  function searchTransactions(
+    transactions: TransactionDTO[],
+    searchString: string
+  ): TransactionDTO[] {
+    const searchTerm = searchString.trim().toLowerCase()
+
+    return transactions.filter((transaction) => {
+      const { title, recipient } = transaction
+
+      const titleMatch = title.toLowerCase().includes(searchTerm)
+      const recipientMatch = recipient.toLowerCase().includes(searchTerm)
+
+      return titleMatch || recipientMatch
+    })
+  }
+
+  useEffect(() => {
+    if (search) {
+      setVisibleTransactions(searchTransactions(filteredTransactions, search))
+    } else {
+      setVisibleTransactions(filteredTransactions)
+    }
+  }, [search, filteredTransactions])
 
   return (
     <ContentContainer>
@@ -215,10 +263,12 @@ const AccountPage = () => {
                   <SelectDate
                     value={startDate}
                     handleChange={(e) => handleValueChange(e, setStartDate)}
+                    id="select-graph-start-date"
                   />
                   <SelectDate
                     value={endDate}
                     handleChange={(e) => handleValueChange(e, setEndDate)}
+                    id="select-graph-end-date"
                   />
                 </div>
               </div>
@@ -255,24 +305,12 @@ const AccountPage = () => {
           <div className="flex flex-col w-full gap-3">
             <h2 className="text-base font-bold">Lista transakcji</h2>
             <div className="flex flex-row gap-6">
-              <div
-                className={`${
-                  filterMenuOpen ? 'w-64' : 'w-[0px]'
-                } transition-all duration-300 ease-in-out overflow-hidden h-full bg-primary-light flex flex-col justify-between shadow-md rounded-md max-h-[500px] p-6`}
-              >
-                <div>
-                  <h3>Filtrowanie</h3>
-                  <h4>Status</h4>
-                  <h4>Data</h4>
-                  <h4>Odbiorca</h4>
-                  <h4>Kategoria</h4>
-                  <h4>Kwota</h4>
-                </div>
-                <div className="flex flex-row items-center justify-center gap-4">
-                  <Button variant="filled" color="neutral" text="Resetuj" size="small" />
-                  <Button variant="filled" color="primary" text="Aplikuj" size="small" />
-                </div>
-              </div>
+              <FilterTransactionsMenu
+                open={filterMenuOpen}
+                transactions={accountTransactions}
+                categories={transactionCategories}
+                setVisibleTransactions={setFilteredTransactions}
+              />
               <div className="flex flex-col w-full gap-4">
                 <div className="flex flex-row items-center w-full">
                   <div className="flex flex-row items-center w-full gap-6">
@@ -318,42 +356,10 @@ const AccountPage = () => {
                     </thead>
 
                     <tbody className="h-[200px] overflow-y-auto">
-                      {transactions &&
-                        transactions
-                          .filter((t) => t.accountId === id)
-                          .map((t) => (
-                            <tr className="hover:bg-background-100 transition-all duration-150 ease-in-out hover:cursor-pointer">
-                              <td className="overflow-hidden w-10 px-4" align="center">
-                                {t.status === 'PENDING' ? (
-                                  <div className="w-5 h-5 bg-red-600 rounded-full flex flex-row justify-center items-center">
-                                    <Alarm className="text-white" />
-                                  </div>
-                                ) : (
-                                  <div className="w-5 h-5 bg-green-600 rounded-full flex flex-row justify-center items-center">
-                                    <Check className="text-white" />
-                                  </div>
-                                )}
-                              </td>
-                              <td className="px-4">{t.title}</td>
-                              <td align="left" className="px-4">
-                                {dayjs(t.date).format('DD-MM-YYYY')}
-                              </td>
-                              <td className="px-4">{t.recipient}</td>
-                              <td className="px-4">{t.description}</td>
-                              <td className="px-4">
-                                {categories.find((c) => c.id == t.categoryId)?.name}
-                              </td>
-                              <td className="px-4">{t.value} zł</td>
-                              <td className="px-4" align="center">
-                                <Button
-                                  variant="icon-only"
-                                  color="neutral"
-                                  IconLeft={Other}
-                                  size="small"
-                                />
-                              </td>
-                            </tr>
-                          ))}
+                      {visibleTransactions &&
+                        visibleTransactions.map((t) => (
+                          <TransactionsTableRow transaction={t} categories={categories} />
+                        ))}
                     </tbody>
                   </table>
                 </div>

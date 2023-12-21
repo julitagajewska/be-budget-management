@@ -20,7 +20,7 @@ const TextArea = ({ label, id, value, handleChange }: TextAreaProps) => {
 
       <textarea
         id={id}
-        rows={6}
+        rows={2}
         value={value}
         onChange={handleChange}
         className="`peer rounded-md custom-input py-[6px] pl-[16px] pr-[16px] resize-none text-background-500 border-background-200 focus:text-primary-600 focus:shadow-primary-100 [&:not(:focus)]:hover:shadow-background-100 [&:not(:focus)]:hover:border-background-400"

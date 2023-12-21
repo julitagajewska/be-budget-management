@@ -10,7 +10,7 @@ type ModalHeaderProps = {
 const ModalHeader = ({ handleClose, title, subtitle }: ModalHeaderProps) => {
   return (
     <div className="w-full flex flex-row justify-between items-start">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold text-background-700">{title}</h2>
         {subtitle && <h3 className="text-bs text-background-500">{subtitle}</h3>}
       </div>
@@ -20,7 +20,6 @@ const ModalHeader = ({ handleClose, title, subtitle }: ModalHeaderProps) => {
         size="small"
         IconLeft={Cross}
         onClick={handleClose}
-        className="mt-1"
       />
     </div>
   )

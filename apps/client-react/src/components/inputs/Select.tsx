@@ -21,56 +21,58 @@ type SelectProps = {
 }
 
 type Variant = 'small' | 'medium'
-const styles: Record<
-  Variant,
-  {
-    container: string
-    label: string
-    input: string
-    icon: string
-    error: string
-  }
-> = {
-  small: {
-    container: '',
-    label: '',
-    input: '',
-    icon: '',
-    error: ''
-  },
-  medium: {
-    container: '',
-    label: '',
-    input: '',
-    icon: '',
-    error: ''
-  }
-}
+// const styles: Record<
+//   Variant,
+//   {
+//     container: string
+//     label: string
+//     input: string
+//     icon: string
+//     error: string
+//   }
+// > = {
+//   small: {
+//     container: '',
+//     label: '',
+//     input: '',
+//     icon: '',
+//     error: ''
+//   },
+//   medium: {
+//     container: '',
+//     label: '',
+//     input: '',
+//     icon: '',
+//     error: ''
+//   }
+// }
 
-const highlightClasses = {
-  base: 'text-background-500 focus:text-primary-600 border-background-200 focus:text-primary-600 focus:shadow-primary-100 [&:not(:focus)]:hover:shadow-background-100 [&:not(:focus)]:hover:border-background-400',
-  error:
-    'placeholder-red-300 focus:placeholder-red-300 text-red-500 border-red-500 text-red-500 focus:text-red-600 focus:shadow-red-200 focus:border-red-400 [&:not(:focus)]:hover:shadow-red-100 [&:not(:focus)]:hover:border-red-400',
-  peerBase: 'text-background-400 peer-hover:text-background-400 peer-focus:text-primary-500',
-  peerError: 'text-red-400 peer-hover:text-red-600 peer-focus:text-red-600',
-  labelBase: 'text-background-600',
-  labelFocus: 'text-primary-600',
-  labelError: 'text-red-600'
-}
+// const highlightClasses = {
+//   base: 'text-background-500 focus:text-primary-600 border-background-200 focus:text-primary-600 focus:shadow-primary-100 [&:not(:focus)]:hover:shadow-background-100 [&:not(:focus)]:hover:border-background-400',
+//   error:
+//     'placeholder-red-300 focus:placeholder-red-300 text-red-500 border-red-500 text-red-500 focus:text-red-600 focus:shadow-red-200 focus:border-red-400 [&:not(:focus)]:hover:shadow-red-100 [&:not(:focus)]:hover:border-red-400',
+//   peerBase: 'text-background-400 peer-hover:text-background-400 peer-focus:text-primary-500',
+//   peerError: 'text-red-400 peer-hover:text-red-600 peer-focus:text-red-600',
+//   labelBase: 'text-background-600',
+//   labelFocus: 'text-primary-600',
+//   labelError: 'text-red-600'
+// }
 
 const Select = ({
   label,
   options,
   placeholder,
   handleSelect,
-  variant = 'small',
-  Icon,
-  required,
+  // variant = 'small',
+  // Icon,
+  // required,
   fullWidth,
   value,
   className
 }: SelectProps) => {
   let widthClasses = fullWidth ? 'w-full' : ''
+
+  console.log(value)
 
   return (
     <div className={`flex flex-col align ${widthClasses}`}>

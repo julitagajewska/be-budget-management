@@ -10,6 +10,7 @@ import ManageCategoriesModal from '../ManageCategoriesModal'
 import { handleValueChange } from '../../../utils'
 import SelectCategory from '../../inputs/SelectCategory'
 import { useCreateAccountMutation } from '../../../redux/api/slices/accountSlice'
+import { toast } from 'react-toastify'
 
 type ManageAccountModalProps = {
   account?: AccountDTO
@@ -33,7 +34,7 @@ const ManageAccountModal = ({
   const [category, setCategory] = useState<string | undefined>(undefined)
   const [balance, setBalance] = useState(0)
 
-  const [createAccount, { isSuccess }] = useCreateAccountMutation()
+  const [createAccount] = useCreateAccountMutation()
 
   const handleCreate = () => {
     console.log(name, category, balance)
@@ -47,15 +48,33 @@ const ManageAccountModal = ({
           name: name,
           balance: balance
         }
-        createAccount(newAccount).then(() => {
-          if (isSuccess) {
+        createAccount(newAccount)
+          .unwrap()
+          .then(() => {
             handleClose()
-            console.log('Account - created')
-            // TODO: Add alert
-          } else {
-            console.log('Account - error')
-          }
-        })
+            toast.success('Konto zostało utworzone pomyślnie!', {
+              position: 'bottom-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored'
+            })
+          })
+          .catch(() => {
+            toast.warn('Nie udało się utworzyć konta.', {
+              position: 'bottom-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored'
+            })
+          })
       } else {
         setError('Wprowadzono nieprawidłowe dane')
       }

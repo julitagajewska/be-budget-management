@@ -49,7 +49,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     editCategory: builder.mutation({
       query: (category: Partial<CategoryDTO>) => ({
         url: `/categories/${category.id}`,
-        method: 'PTACH',
+        method: 'PUT',
         body: category
       }),
       invalidatesTags: () => [{ type: 'CATEGORY', id: 'CATEGORY' }]

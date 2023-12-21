@@ -40,7 +40,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     editTransaction: builder.mutation({
       query: (transaction: Partial<TransactionDTO>) => ({
         url: `/transactions/${transaction._id}`,
-        method: 'PTACH',
+        method: 'PUT',
         body: transaction
       }),
       invalidatesTags: () => [{ type: 'ACCOUNT', id: 'ACCOUNT' }]

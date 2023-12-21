@@ -11,7 +11,7 @@ type RadioProps = {
 
 const Radio = ({ value, name, label, id, checked, handleChange }: RadioProps) => {
   return (
-    <label htmlFor={id}>
+    <label htmlFor={id} className="flex flex-row items-center gap-2">
       <input
         type="radio"
         value={value}
