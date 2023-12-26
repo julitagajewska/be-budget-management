@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Plus from '@/components/icons/Plus.vue'
-import Button from '@/components/buttons/Button.vue'
+import Plus from '../../icons/Plus.vue'
+import Button from '../../buttons/Button.vue'
 import Modal from '../Modal.vue'
 import { onMounted, ref, watch } from 'vue'
-import IconOnlyButton from '@/components/buttons/IconOnlyButton.vue'
+import IconOnlyButton from '../../buttons/IconOnlyButton.vue'
 import accountsService from '../../../services/accountsService'
 import { AccountDTO, CategoryDTO } from '../../../../../../packages/shared-types/types'
 

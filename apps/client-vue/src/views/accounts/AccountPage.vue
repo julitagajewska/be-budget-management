@@ -11,15 +11,18 @@ import Trash from '@icons/Trash.vue'
 import Edit from '@icons/Edit.vue'
 import Filter from '@icons/Filter.vue'
 import Plus from '@/components/icons/Plus.vue'
-import More from '@/components/icons/More.vue'
-import Modal from '@/components/modal/Modal.vue'
+import DeleteAccountModal from '@/components/modal/account/DeleteAccountModal.vue'
+import EditAccountModal from '@/components/modal/account/EditAccountModal.vue'
+import AddTransactionModal from '@/components/modal/transaction/AddTransactionModal.vue'
+import TransactionTableRow from '@/components/table/TransactionTableRow.vue'
 
-const route = useRoute()
+// STATE
 const transactions = ref<TransactionDTO[]>([])
 const categories = ref<CategoryDTO[]>([])
 const account = ref<AccountDTO>()
 const id = ref()
 
+// API
 async function getTransactions(accountId: string) {
   transactions.value = await accountsService.getAccountsTransactions('123', accountId)
 }
@@ -29,19 +32,18 @@ async function getCategories(id: string) {
 }
 
 async function getAccountById(id: string) {
-  account.value = await api.accounts.getAccountById(id)
+  api.accounts.getAccountById(id).then((response) => (account.value = response))
 }
 
-async function deleteAccount(id: string) {
-  await api.accounts.deleteAccount(id)
-}
-
+// HANDLERS
 const handleReturn = () => {
   router.push('/accounts')
 }
 
 const getCategoryName = (id: string) => categories.value.find((c) => c.id === id)?.name
 
+// HOOKS
+const route = useRoute()
 onMounted(() => {
   id.value = route.params.id
   getTransactions(id.value)
@@ -50,37 +52,49 @@ onMounted(() => {
 })
 
 // MODAL
-const openEditModal = ref(false)
-const openDeleteModal = ref(false)
+const isEditAccountModalOpen = ref(false)
+const isDeleteAccountModalOpen = ref(false)
+const isAddTransactionModalOpen = ref(false)
 
-const handleOpenEditModal = () => (openEditModal.value = true)
-const handleCloseEdit = () => (openEditModal.value = false)
+// HANDLERS
 
-const handleOpenDeleteModal = () => (openDeleteModal.value = true)
-const handleCloseDelete = () => (openDeleteModal.value = false)
+// DELETE
+function openDeleteAccountModal() {
+  isDeleteAccountModalOpen.value = true
+}
 
-const handleDelete = () => {
-  router.push('/accounts')
-  deleteAccount(account.value?._id ?? '')
-  handleCloseDelete()
+function closeDeleteAccountModal() {
+  isDeleteAccountModalOpen.value = false
+}
+
+// EDIT
+function openEditAccountModal() {
+  isEditAccountModalOpen.value = true
+}
+
+function closeEditAccountModal() {
+  isEditAccountModalOpen.value = false
+}
+
+// NEW TRANSACTION
+function openAddTransactionModal() {
+  isAddTransactionModalOpen.value = true
+}
+
+function closeAddTransactionModal() {
+  isAddTransactionModalOpen.value = false
+}
+
+function handleRefetch() {
+  getAccountById(id.value)
+}
+
+function handleRefetchTransactions() {
+  getTransactions(id.value)
 }
 </script>
 
 <template>
-  <Modal
-    v-if="openEditModal"
-    :title="'abcd'"
-    :handle-confirm="() => {}"
-    :handle-cancel="handleCloseEdit"
-    >abcd</Modal
-  >
-  <Modal
-    v-if="openDeleteModal"
-    :title="'Usuwanie konta'"
-    :handle-confirm="handleDelete"
-    :handle-cancel="handleCloseDelete"
-    ><span>{{ `Czy na pewno chcesz usunąć konto: ${account?.name}?` }}</span></Modal
-  >
   <div class="content-container gap-8">
     <!-- PAGE HEADER -->
     <div class="w-full flex flex-row justify-between items-center">
@@ -91,10 +105,10 @@ const handleDelete = () => {
         <h1 class="text-lg text-background-800 font-semibold">{{ account?.name }}</h1>
       </div>
       <div class="flex flex-row gap-4">
-        <Button color="neutral" @click="handleOpenDeleteModal"
+        <Button color="neutral" @click="openDeleteAccountModal"
           ><Trash class="text-sm" /> Usuń konto</Button
         >
-        <Button color="primary" @click="handleOpenEditModal"
+        <Button color="primary" @click="openEditAccountModal"
           ><Edit class="text-sm" /> Edytuj konto</Button
         >
       </div>
@@ -214,7 +228,9 @@ const handleDelete = () => {
           <label> <input type="checkbox" /> Pokaż szczegółowe dane </label>
         </div>
         <div>
-          <Button><Plus class="text-base" /> <span>Dodaj transakcje</span></Button>
+          <Button @click="openAddTransactionModal"
+            ><Plus class="text-base" /> <span>Dodaj transakcje</span></Button
+          >
         </div>
       </div>
       <input type="text" class="w-full" placeholder="Wyszukaj transakcję ..." />
@@ -227,24 +243,16 @@ const handleDelete = () => {
           <th>Opis</th>
           <th>Kategoria</th>
           <th>Kwota</th>
-          <th>Saldo</th>
           <th>Akcja</th>
         </thead>
 
         <tbody>
-          <tr v-for="t in transactions">
-            <td>{{ t.status }}</td>
-            <td>{{ t.title }}</td>
-            <td>{{ t.date }}</td>
-            <td>{{ t.recipient }}</td>
-            <td>{{ t.description }}</td>
-            <td>{{ getCategoryName(t.categoryId) }}</td>
-            <td>{{ t.value }}</td>
-            <td>{{ account?.balance }}</td>
-            <td>
-              <button><More /></button>
-            </td>
-          </tr>
+          <TransactionTableRow
+            v-for="t in transactions"
+            :refetch="handleRefetchTransactions"
+            :t="t"
+            :category-name="getCategoryName(t.categoryId) || ''"
+          />
         </tbody>
       </table>
     </div>
@@ -262,5 +270,28 @@ const handleDelete = () => {
     <ul>
       <li v-for="category in categories">{{ category.categoryType }} - {{ category.name }}</li>
     </ul> -->
+
+    <DeleteAccountModal
+      :account="account"
+      :is-open="isDeleteAccountModalOpen"
+      :open="openDeleteAccountModal"
+      :close="closeDeleteAccountModal"
+    />
+
+    <EditAccountModal
+      :account="account"
+      :is-open="isEditAccountModalOpen"
+      :open="openEditAccountModal"
+      :close="closeEditAccountModal"
+      :refetch="handleRefetch"
+    />
+
+    <AddTransactionModal
+      :account="account"
+      :is-open="isAddTransactionModalOpen"
+      :open="openAddTransactionModal"
+      :close="closeAddTransactionModal"
+      :refetch="handleRefetchTransactions"
+    />
   </div>
 </template>

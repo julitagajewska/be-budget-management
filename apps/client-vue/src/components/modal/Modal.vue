@@ -20,9 +20,11 @@ const props = withDefaults(defineProps<ModalProps>(), {})
     class="w-full h-full bg-black bg-opacity-25 backdrop-blur-sm fixed top-0 left-0 z-10 flex flex-row justify-center items-center"
   >
     <div class="bg-background-50 w-[400px] rounded-md shadow-md flex flex-col py-4 px-6 gap-4">
-      <div class="w-full flex flex-row justify-between items-center">
-        <h4 class="text-base font-bold text-background-700">{{ props.title }}</h4>
-        <h5 v-if="props.subtitle">{{ props.subtitle }}</h5>
+      <div class="w-full flex flex-row justify-between items-start">
+        <div class="flex flex-col">
+          <h4 class="text-base font-bold text-background-700">{{ props.title }}</h4>
+          <h5 v-if="props.subtitle" class="text-xs">{{ props.subtitle }}</h5>
+        </div>
         <IconOnlyButton color="neutral" size="small" class="px-1 h-6" @click="handleCancel"
           ><Cross
         /></IconOnlyButton>

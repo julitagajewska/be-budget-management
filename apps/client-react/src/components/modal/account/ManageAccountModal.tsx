@@ -93,7 +93,7 @@ const ManageAccountModal = ({
 
   const handleCategoryModalClose = () => {
     setCategoryModalOpen(false)
-    handleOpen()
+    if (handleOpen) handleOpen()
   }
 
   return (
