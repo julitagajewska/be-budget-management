@@ -132,10 +132,6 @@ const AccountPage = () => {
   // FILTERING MENU
   const [filterMenuOpen, setFilterMenuOpen] = useState(true)
 
-  // useEffect(() => {
-  //   if(filteredTransactions)
-  // }, [filteredTransactions])
-
   // SEARCHBAR
 
   function searchTransactions(

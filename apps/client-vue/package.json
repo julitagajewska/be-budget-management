@@ -16,6 +16,7 @@
     "i18next-vue": "^3.0.0",
     "pinia": "^2.1.7",
     "shared-types": "*",
+    "shared-utils": "*",
     "vue": "^3.3.4",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.2.5"

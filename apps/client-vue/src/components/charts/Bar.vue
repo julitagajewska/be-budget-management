@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import dayjs, { Dayjs } from 'dayjs'
-import accountsService from '../../services/accountsService'
-import { computed, onMounted, ref } from 'vue'
-import { TransactionDTO } from '../../../../../packages/shared-types/types'
-import { useRoute } from 'vue-router'
-import isBetween from 'dayjs/plugin/isBetween'
-import { Bar } from 'vue-chartjs'
+import dayjs from 'dayjs'
+import { TransactionDTO } from 'shared-types'
+import { computed } from 'vue'
 import {
   Chart as ChartJS,
   Title,
@@ -15,101 +11,127 @@ import {
   CategoryScale,
   LinearScale
 } from 'chart.js'
+import { Bar } from 'vue-chartjs'
+import utils from 'shared-utils'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
+// PROPS
+// PROPS
 type BarChartProps = {
-  transactionType: 'incomes' | 'expenses' | 'both'
-  dataType: 'sum' | 'count'
+  transactions: TransactionDTO[]
+  dataType: 'SUM' | 'COUNT'
+  transactionType: 'INCOMES' | 'EXPENSES' | 'BOTH'
   startDate: string
   endDate: string
 }
 
-const props = withDefaults(defineProps<BarChartProps>(), {
-  transactionType: 'incomes',
-  dataType: 'sum',
-  startDate: dayjs().toString(),
-  endDate: dayjs().add(6, 'month').toString()
+const props = withDefaults(defineProps<BarChartProps>(), {})
+
+// STATE
+let start = computed(() => dayjs(props.startDate))
+let end = computed(() => dayjs(props.endDate))
+
+const transactions = computed(() =>
+  props.transactions.filter((t) => {
+    return dayjs(t.date).isBetween(start.value, end.value, 'day')
+  })
+)
+
+// MONTHS
+let diff = computed(() => end.value.diff(start.value, 'month'))
+let monthsArray = computed(() => {
+  let array = []
+  for (let i = 0; i < diff.value; i++) {
+    array.push(start.value.add(i, 'month'))
+  }
+
+  return array
 })
 
-const id = ref()
-const transactions = ref<TransactionDTO[]>([])
-const route = useRoute()
+let monthsNames = computed(() =>
+  monthsArray.value.map((m) => utils.capitalizeFirstLetter(m.format('MMMM').toString()))
+)
 
-dayjs.extend(isBetween)
+// INCOMES
+const incomes = computed(() => transactions.value.filter((t) => !t.isExpense))
+const incomesPerMonth = computed(() =>
+  monthsArray.value.map((date) =>
+    incomes.value.filter((i) => {
+      let first = date.startOf('month')
+      let last = date.endOf('month')
+      return dayjs(i.date).isBetween(first, last, 'day', '[)')
+    })
+  )
+)
+const incomesSumPerMonth = incomesPerMonth.value.map(
+  (a) => a?.reduce((acc, cur) => acc + cur.value, 0)
+)
+const incomesCountPerMonth = incomesPerMonth.value.map((a) => a?.reduce((acc) => acc + 1, 0))
 
-async function getTransactions(accountId: string) {
-  transactions.value = await accountsService.getAccountsTransactions('123', accountId)
-}
+// EXPENSES
+const expenses = computed(() => transactions.value.filter((t) => t.isExpense))
+const expensesPerMonth = computed(() =>
+  monthsArray.value.map((date) =>
+    expenses.value.filter((i) => {
+      let first = date.startOf('month')
+      let last = date.endOf('month')
+      return dayjs(i.date).isBetween(first, last, 'day', '[)')
+    })
+  )
+)
 
-const capitalizeFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
+const expensesSumPerMonth = expensesPerMonth.value.map(
+  (a) => a?.reduce((acc, cur) => acc + cur.value, 0)
+)
+const expensesCountPerMonth = expensesPerMonth.value.map((a) => a?.reduce((acc) => acc + 1, 0))
 
-let start = dayjs(props.startDate)
-let end = dayjs(props.endDate)
-let diff = end.diff(start, 'month')
-let monthsArray: Dayjs[] = []
-
-for (let i = 0; i < diff; i++) {
-  monthsArray.push(dayjs(start).add(i, 'month'))
-}
-
-let monthsNames = monthsArray.map((m) => capitalizeFirstLetter(m.format('MMMM').toString()))
-
-// const incomes = computed(
-//   () =>
-//     transactions.value
-//       ?.filter((t) => !t.isExpense)
-//       .filter((t) => dayjs(t.date).isBetween(start, end, 'day', '[]'))
-// )
-
-// const expenses = computed(
-//   () =>
-//     transactions.value
-//       ?.filter((t) => t.isExpense)
-//       .filter((t) => dayjs(t.date).isBetween(start, end, 'month'))
-// )
-
-// const incomesPerMonth = computed(() =>
-//   monthsArray.map(
-//     (date) =>
-//       incomes.value?.filter((i) => {
-//         let first = date.startOf('month')
-//         let last = date.endOf('month')
-//         return dayjs(i.date).isBetween(first, last, 'day', '[)')
-//       })
-//   )
-// )
-
-// const expensesPerMonth = computed(() =>
-//   monthsArray.map(
-//     (date) =>
-//       expenses.value?.filter((i) => {
-//         let first = date.startOf('month')
-//         let last = date.endOf('month')
-//         return dayjs(i.date).isBetween(first, last, 'day', '[)')
-//       })
-//   )
-// )
-
-onMounted(() => {
-  id.value = route.params.id
-  getTransactions(id.value)
+const dataSets = computed(() => {
+  switch (props.transactionType) {
+    case 'INCOMES':
+      return {
+        datasets: [
+          {
+            label: props.dataType === 'SUM' ? 'Suma dochodów' : 'Liczba dochodów',
+            data: props.dataType === 'SUM' ? incomesSumPerMonth : incomesCountPerMonth,
+            backgroundColor: ['#3C6255', '#61876E', '#A6BB8D', '#EAE7B1']
+          }
+        ]
+      }
+    case 'EXPENSES':
+      return {
+        datasets: [
+          {
+            label: props.dataType === 'SUM' ? 'Suma wydatków' : 'Liczba wydatków',
+            data: props.dataType === 'SUM' ? expensesSumPerMonth : expensesCountPerMonth,
+            backgroundColor: ['#FFBB5C', '#FF9B50', '#E25E3E', '#C63D2F']
+          }
+        ]
+      }
+    case 'BOTH':
+      return {
+        datasets: [
+          {
+            label: props.dataType === 'SUM' ? 'Suma dochodów' : 'Liczba dochodów',
+            data: props.dataType === 'SUM' ? incomesSumPerMonth : incomesCountPerMonth,
+            backgroundColor: ['#8DBE88']
+          },
+          {
+            label: props.dataType === 'SUM' ? 'Suma wydatków' : 'Liczba wydatków',
+            data: props.dataType === 'SUM' ? expensesSumPerMonth : expensesCountPerMonth,
+            backgroundColor: ['#E68080']
+          }
+        ]
+      }
+  }
 })
 
-const charOptions = {
-  responsive: true
-}
-
-const charData = {
-  labels: ['January', 'February', 'March'],
-  datasets: [{ data: [40, 20, 12] }]
-}
+const data = computed(() => ({
+  labels: monthsNames.value,
+  datasets: dataSets.value.datasets
+}))
 </script>
 
 <template>
-  <div>
-    <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
-  </div>
+  <Bar :data="data" />
 </template>
