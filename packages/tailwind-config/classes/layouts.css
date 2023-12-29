@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.shadow-large {
+  box-shadow: 4px 4px 4px 0px rgba(31, 31, 31, 0.15), 0px 11px 24px 0px rgba(120, 120, 120, 0.1),
+    0px 43px 43px 0px rgba(120, 120, 120, 0.09), 0px 97px 58px 0px rgba(120, 120, 120, 0.05),
+    0px 172px 69px 0px rgba(120, 120, 120, 0.01), 0px 269px 75px 0px rgba(120, 120, 120, 0);
+}
+
 .page-container {
     @apply text-text-900 font-mulish w-full h-screen min-h-[100vh] relative bg-background-50 flex flex-col justify-start items-start
 }

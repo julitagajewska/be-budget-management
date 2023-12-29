@@ -164,7 +164,7 @@ watch([searchInput, filteredTransactions], () => {
     <div class="w-full flex flex-row justify-between items-center">
       <div class="flex flex-row gap-4 items-center">
         <Button @click="handleReturn" color="neutral" class="px-1 h-6">
-          <ArrowLeft class="text-base" />
+          <ArrowLeft class="text-base" /> Powrót
         </Button>
         <h1 class="text-lg text-background-800 font-semibold">{{ account?.name }}</h1>
       </div>
@@ -324,8 +324,8 @@ watch([searchInput, filteredTransactions], () => {
           :transaction-type="selectedTransacitonType"
           :data-type="selectedDataType"
           :start-date="startDate"
-          :end-date="endDate" />
-        
+          :end-date="endDate"
+        />
       </div>
     </div>
 

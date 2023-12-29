@@ -27,5 +27,5 @@ export type {
     CategoryType,
     InputBase,
     TransactionStatus,
-    Account
+    Account,
 }

@@ -5,6 +5,7 @@
 @import "./classes/shadows.css";
 @import "./classes/checkbox.css";
 @import "./classes/buttons.css";
+@import "./classes/tiles.css";
 
 @tailwind base;
 @tailwind components;
