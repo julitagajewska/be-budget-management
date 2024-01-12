@@ -21,6 +21,7 @@ import utils from 'shared-utils'
 import Donut from '@/components/charts/Donut.vue'
 import dayjs from 'dayjs'
 import Bar from '@/components/charts/Bar.vue'
+import ButtonOptions from '@/components/buttons/ButtonOptions'
 
 // STATE
 const transactions = ref<TransactionDTO[]>([])
@@ -166,6 +167,7 @@ watch([searchInput, filteredTransactions], () => {
         <Button @click="handleReturn" color="neutral" class="px-1 h-6">
           <ArrowLeft class="text-base" /> Powrót
         </Button>
+        <ButtonOptions />
         <h1 class="text-lg text-background-800 font-semibold">{{ account?.name }}</h1>
       </div>
       <div class="flex flex-row gap-4">

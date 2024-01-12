@@ -170,6 +170,7 @@ export const AddTransactionModal = component$(({ account, close }: AddTransactio
             onInput$={(e) => (state.date = (e.target as HTMLInputElement).value)}
           />
         </div>
+
         {/* OPIS */}
         <div class="flex flex-col gap-1">
           <label for="transaction-description-input">Opis</label>
@@ -177,15 +178,6 @@ export const AddTransactionModal = component$(({ account, close }: AddTransactio
             id="transaction-description-input"
             type="text"
             onInput$={(e) => (state.description = (e.target as HTMLInputElement).value)}
-          />
-        </div>
-
-        <div class="flex flex-col gap-1">
-          <label for="transaction-value-input">Wartość</label>
-          <input
-            id="transaction-value-input"
-            type="number"
-            onInput$={(e) => (state.value = +(e.target as HTMLInputElement).value)}
           />
         </div>
       </Modal>

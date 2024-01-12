@@ -1,8 +1,11 @@
-import { component$, useStore, $ } from '@builder.io/qwik'
+import { component$, useStore, $, useSignal, useStyles$ } from '@builder.io/qwik'
 import type { AccountDTO, TransactionDTO } from 'shared-types'
-import { Menu } from '../menu/Menu'
 import { DeleteTransactionModal } from '../modal/transactions/DeleteTransactionModal'
 import { EditTransactionModal } from '../modal/transactions/EditTransactionModal'
+import { TransactionTypeChip } from '../chips/TransactionTypeChip'
+import dayjs from 'dayjs'
+import { Popover, PopoverTrigger, usePopover } from '@qwik-ui/headless'
+import { More } from '~/icons'
 
 type TransactionTableRowProps = {
   account: AccountDTO
@@ -17,7 +20,28 @@ export const TransactionTableRow = component$(
       isEditTransactionModalOpen: false
     })
 
+    // POPOVER
+    useStyles$(`
+  .my-transition {
+    transition: opacity 0.5s, display 0.5s, overlay 0.5s;
+    transition-behavior: allow-discrete;
+    opacity: 0;
+  }
+
+  .popover-showing {
+    opacity: 1;
+  }
+
+  .popover-closing {
+    opacity: 0;
+  }`)
+
+    const { showPopover, togglePopover } = usePopover(`anchor-ref-${t._id}`)
+    const triggerRef = useSignal<HTMLButtonElement>()
+    const popoverRef = useSignal<HTMLElement>()
+
     const handleOpenDeleteTransactionModal = $(() => {
+      togglePopover()
       state.isDeleteTransactionModalOpen = true
     })
 
@@ -26,6 +50,7 @@ export const TransactionTableRow = component$(
     })
 
     const handleOpenEditTransactionModal = $(() => {
+      togglePopover()
       state.isEditTransactionModalOpen = true
     })
 
@@ -36,16 +61,38 @@ export const TransactionTableRow = component$(
     return (
       <>
         <tr>
-          <td>{t.status}</td>
-          <td>{t.title}</td>
-          <td>{t.date}</td>
-          <td>{t.recipient}</td>
-          <td>{t.description}</td>
-          <td>{categoryName}</td>
-          <td>{t.value}</td>
           <td>
-            <Menu>
-              <div q:slot="content" class="flex flex-col gap-1 w-fit items-start py-1">
+            <TransactionTypeChip isExpense={t.isExpense} />
+          </td>
+          <td class="px-2">{t.status}</td>
+          <td class="px-2 w-8 text-ellipsis overflow-hidden">{t.title}</td>
+          <td class="px-2">{dayjs(t.date).format('DD-MM-YYYY')}</td>
+          <td class="px-2">{t.recipient}</td>
+          <td class="px-2">{t.description}</td>
+          <td class="px-2">{categoryName}</td>
+          <td class="px-2">{t.value}</td>
+          <td class="px-2">
+            <PopoverTrigger
+              ref={triggerRef}
+              onClick$={() => {
+                showPopover()
+              }}
+              popovertarget={`anchor-ref-${t._id}`}
+              class="rounded-md  px-1 py-1 hover:bg-background-100 transition-all duration-150 ease-in-out"
+            >
+              <More />
+            </PopoverTrigger>
+
+            <Popover
+              ref={popoverRef}
+              anchorRef={triggerRef}
+              floating={true}
+              placement="left"
+              gutter={4}
+              id={`anchor-ref-${t._id}`}
+              class="my-transition listbox shadow-dark-low rounded-md "
+            >
+              <div class="flex flex-col gap-1 w-fit items-start py-1">
                 <button
                   class="hover:bg-background-100 transition-all duration-150 ease-in-out w-24 flex flex-row items-start px-4 py-1"
                   onClick$={handleOpenDeleteTransactionModal}
@@ -59,7 +106,7 @@ export const TransactionTableRow = component$(
                   Edytuj
                 </button>
               </div>
-            </Menu>
+            </Popover>
           </td>
         </tr>
 

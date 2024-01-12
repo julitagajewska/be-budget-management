@@ -1,4 +1,5 @@
-import { component$, useStore, $, useSignal } from '@builder.io/qwik'
+import type { QwikChangeEvent } from '@builder.io/qwik'
+import { component$, useStore, $, useSignal, useTask$ } from '@builder.io/qwik'
 import { Button } from '~/components/buttons/Button'
 import { DeleteAccountModal } from '~/components/modal/accounts/DeleteAccountModal'
 import { EditAccountModal } from '~/components/modal/accounts/EditAccountModal'
@@ -10,6 +11,12 @@ import { useCategories } from '~/api/categoriesAPI'
 import { AddTransactionModal } from '~/components/modal/transactions/AddTransactionModal'
 import { TransactionTableRow } from '~/components/table/TransactionTableRow'
 import { useNavigate } from '@builder.io/qwik-city'
+import { FilterTransactionsMenu } from '~/components/menu/FilterTransactionsMenu'
+import type { TransactionDTO } from 'shared-types'
+import { SummaryDoughnut } from '~/components/charts/accounts/SummaryDoughnut'
+import { TransactionsBarChart } from '~/components/charts/accounts/TransactionsBarChart'
+import { TransactionsDoughnutChart } from '~/components/charts/accounts/TransactionsDoughnutChart'
+import { baseUrl, temporaryId } from '~/api/apiSettings'
 
 export { useGetAccountById, useDeleteAccount, useEditAccount } from '~/api/accountsAPI'
 export {
@@ -25,12 +32,27 @@ export {
   useDeleteCategory
 } from '~/api/categoriesAPI'
 
+type AccountPageState = {
+  deleteAccountModalOpen: boolean
+  editAccountModalOpen: boolean
+  filteringMenuOpen: boolean
+  addTransactionModalOpen: boolean
+  deleteTransactionModalOpen: boolean
+  editTransactionModalOpen: boolean
+  filterTransactionsMenuOpen: boolean
+  filteredTransactions: TransactionDTO[]
+  searchedTransactions: TransactionDTO[]
+  searchInput: string
+  debouncedSearchInput: string
+}
+
 const AccountPage = component$(() => {
-  // // const id = useLocation().params.id
   const navigate = useNavigate()
   const account = useGetAccountById()
   const transactions = useUsersTransactions().value.filter((t) => t.accountId === account.value._id)
-  const categories = useCategories().value.filter((c) => c.categoryType === 'ACCOUNT')
+  const allCategories = useCategories()
+
+  console.log(transactions)
 
   const incomesSum = useSignal<number>(
     transactions.filter((t) => !t.isExpense).reduce((prev, curr) => prev + curr.value, 0)
@@ -40,13 +62,25 @@ const AccountPage = component$(() => {
     transactions.filter((t) => t.isExpense).reduce((prev, curr) => prev + curr.value, 0)
   )
 
-  const state = useStore({
+  const startDate = useSignal('2023-12-01')
+  const endDate = useSignal('2024-03-01')
+
+  const selectedTransactionType = useSignal<'INCOMES' | 'EXPENSES' | 'BOTH'>('INCOMES')
+  const selectedDataType = useSignal<'SUM' | 'COUNT'>('SUM')
+  const selectedChartType = useSignal<'DOUGHNUT' | 'BAR'>('BAR')
+
+  const state = useStore<AccountPageState>({
     deleteAccountModalOpen: false,
     editAccountModalOpen: false,
     filteringMenuOpen: true,
     addTransactionModalOpen: false,
     deleteTransactionModalOpen: false,
-    editTransactionModalOpen: false
+    editTransactionModalOpen: false,
+    filterTransactionsMenuOpen: true,
+    filteredTransactions: transactions,
+    searchedTransactions: transactions,
+    searchInput: '',
+    debouncedSearchInput: ''
   })
 
   const handleOpenDeleteAccountModal = $(() => {
@@ -77,24 +111,82 @@ const AccountPage = component$(() => {
     state.addTransactionModalOpen = false
   })
 
-  //    const handleOpenEditTransactionModal = $(() => {
-  //   state.editTransactionModalOpen = true
-  // })
-
-  // const handleCloseEditTransactionModal = $(() => {
-  //   state.editTransactionModalOpen = false
-  // })
-
-  //    const handleOpenDeleteTransactionModal = $(() => {
-  //   state.deleteTransactionModalOpen = true
-  // })
-
-  // const handleCloseDeleteTransactionModal = $(() => {
-  //   state.deleteTransactionModalOpen = false
-  // })
+  const getCategoryName = (categoryId: string) => {
+    console.log(`Category ID: ${categoryId}`)
+    return allCategories.value.find((c) => c.id === categoryId)?.name
+  }
 
   const handleReturn = $(() => {
     navigate('/accounts')
+  })
+
+  const handleSetVisibleTransactions = $((filteredTransactions: TransactionDTO[]) => {
+    state.filteredTransactions = filteredTransactions
+  })
+
+  const handleSearch = $((transactions: TransactionDTO[], searchInput: string) => {
+    if (searchInput) {
+      const searchTerm = searchInput.trim().toLowerCase()
+
+      return transactions.filter((transaction) => {
+        const { title, recipient } = transaction
+
+        const titleMatch = title.toLowerCase().includes(searchTerm)
+        const recipientMatch = recipient.toLowerCase().includes(searchTerm)
+
+        return titleMatch || recipientMatch
+      })
+    } else {
+      return transactions
+    }
+  })
+
+  const searchInput = useSignal('')
+  const debouncedSearchInput = useSignal('')
+
+  // DEBOUNCED SEARCH
+  useTask$(({ track, cleanup }) => {
+    track(() => searchInput.value)
+
+    const debounced = setTimeout(async () => {
+      debouncedSearchInput.value = searchInput.value
+      state.searchedTransactions = await handleSearch(
+        state.filteredTransactions,
+        debouncedSearchInput.value
+      )
+    }, 500)
+    cleanup(() => clearTimeout(debounced))
+  })
+
+  // UN-DEBOUNCED FILTER
+  useTask$(async ({ track }) => {
+    track(() => state.filteredTransactions)
+    debouncedSearchInput.value = searchInput.value
+    state.searchedTransactions = await handleSearch(
+      state.filteredTransactions,
+      debouncedSearchInput.value
+    )
+  })
+
+  useTask$(async ({ track }) => {
+    track(() => transactions)
+    console.log('Refetched')
+  })
+
+  const handleTransationTypeSelection = $((e: QwikChangeEvent<HTMLInputElement>) => {
+    if (
+      e.target.value === 'INCOMES' ||
+      e.target.value === 'EXPENSES' ||
+      e.target.value === 'BOTH'
+    ) {
+      selectedTransactionType.value = e.target.value
+    }
+  })
+
+  const handleDataTypeSelection = $((e: QwikChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === 'SUM' || e.target.value === 'COUNT') {
+      selectedDataType.value = e.target.value
+    }
   })
 
   return (
@@ -129,7 +221,7 @@ const AccountPage = component$(() => {
           <div class="pl-4">
             <h3 class="font-semibold text-background-700">Kategoria konta</h3>
             <span class="text-background-600">
-              {categories.find((c) => c.id === account.value.category)?.name}
+              {allCategories.value.find((c) => c.id === account.value.category)?.name}
             </span>
           </div>
 
@@ -142,7 +234,7 @@ const AccountPage = component$(() => {
         <div class="flex flex-col w-1/2 gap-2 justify-between">
           <h2 class="text-md font-semibold text-background-700">Podsumowanie liczbowe</h2>
 
-          {/* <SummaryDoughnut :transactions="transactions" /> */}
+          <SummaryDoughnut transactions={transactions} />
 
           <div class="w-full flex flex-row justify-center items-center gap-4">
             <div class="flex flex-col gap-1 w-48">
@@ -168,16 +260,138 @@ const AccountPage = component$(() => {
         </div>
       </div>
 
+      <div class="flex flex-row items-start justify-between">
+        <div class="flex flex-col w-1/2 gap-3">
+          <h2 class="text-md font-semibold text-background-700">Opcje wykresu</h2>
+
+          <div class="flex flex-col pl-4 gap-1">
+            <h3 class="font-semibold text-background-700">Rodzaj transakcji</h3>
+            <div class="flex flex-row gap-4">
+              <label class="flex flex-row gap-2 items-center text-sm text-background-600 w-20">
+                <input
+                  type="radio"
+                  name="transaction-type"
+                  value="INCOMES"
+                  checked={selectedTransactionType.value === 'INCOMES'}
+                  onChange$={handleTransationTypeSelection}
+                />
+                Dochody
+              </label>
+              <label class="flex flex-row gap-2 items-center text-sm text-background-600 w-20">
+                <input
+                  type="radio"
+                  name="transaction-type"
+                  value="EXPENSES"
+                  checked={selectedTransactionType.value === 'EXPENSES'}
+                  onChange$={handleTransationTypeSelection}
+                />
+                Wydatki
+              </label>
+              <label class="flex flex-row gap-2 items-center text-sm text-background-600 w-20">
+                <input
+                  type="radio"
+                  name="transaction-type"
+                  value="BOTH"
+                  checked={selectedTransactionType.value === 'BOTH'}
+                  onChange$={handleTransationTypeSelection}
+                />
+                Wszystkie
+              </label>
+            </div>
+          </div>
+
+          <div class="flex flex-col pl-4 gap-1">
+            <h3 class="font-semibold text-background-700">Rodzaj danych</h3>
+            <div class="flex flex-row gap-4">
+              <label class="flex flex-row gap-2 items-center text-sm text-background-600 w-20">
+                <input
+                  type="radio"
+                  name="data-type"
+                  value="SUM"
+                  checked={selectedDataType.value === 'SUM'}
+                  onChange$={handleDataTypeSelection}
+                />{' '}
+                Suma
+              </label>
+              <label class="flex flex-row gap-2 items-center text-sm text-background-600 w-20">
+                <input
+                  type="radio"
+                  name="data-type"
+                  value="COUNT"
+                  checked={selectedDataType.value === 'COUNT'}
+                  onChange$={handleDataTypeSelection}
+                />
+                Liczba
+              </label>
+            </div>
+          </div>
+
+          <div class="flex flex-col pl-4 gap-1">
+            <h3 class="font-semibold text-background-700">Przedział czasowy</h3>
+            <div class="flex flex-row gap-4 w-2/3">
+              <div class="flex flex-col w-1/2">
+                <label class="text-sm text-background-600"> Początek </label>
+                <input type="date" name="date-start" class="w-full" bind:value={startDate} />
+              </div>
+              <div class="flex flex-col w-1/2">
+                <label class="text-sm text-background-600"> Koniec </label>
+                <input type="date" name="date-end" class="w-full" bind:value={endDate} />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col pl-4 gap-1">
+            <h3 class="font-semibold text-background-700">Rodzaj wykresu</h3>
+            <div class="flex flex-row gap-4 w-2/3">
+              <select
+                name="chart-type"
+                id="chart-type-select"
+                class="w-full"
+                bind:value={selectedChartType}
+              >
+                <option value="DOUGHNUT">Wykres kołowy</option>
+                <option value="BAR">Wykres słupkowy</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col w-1/2 gap-2 justify-between">
+          <h2 class="text-md font-semibold text-background-700">Podsumowanie liczbowe</h2>
+
+          {selectedChartType.value === 'BAR' ? (
+            <TransactionsBarChart
+              transactions={transactions}
+              dataType={selectedDataType.value}
+              transactionType={selectedTransactionType.value}
+              startDate={startDate.value}
+              endDate={endDate.value}
+            />
+          ) : (
+            <TransactionsDoughnutChart
+              transactions={transactions}
+              categories={allCategories.value}
+              dataType={selectedDataType.value}
+              transactionType={selectedTransactionType.value}
+              startDate={startDate.value}
+              endDate={endDate.value}
+            />
+          )}
+
+          <div class="w-full flex flex-row justify-center items-center gap-4"></div>
+        </div>
+      </div>
+
       <div class="flex flex-col gap-4">
         <h3 class="font-semibold text-background-700">Lista transakcji</h3>
-        <div class="w-full h-full flex flex-row justify-between">
+        <div class="w-full h-full flex flex-row justify-between gap-6">
           <div>
             {/* <FilterTransactionsMenu
-            :open="true"
-            :transactions="transactions"
-            :categories="categories"
-            :set-visible-transactions="setFilteredTransactions"
-          /> */}
+              open={state.filterTransactionsMenuOpen}
+              transactions={transactions}
+              categories={allCategories.value}
+              setVisibleTransactions={handleSetVisibleTransactions}
+            /> */}
           </div>
           <div class="w-full">
             <div class="flex flex-row justify-between items-center">
@@ -198,15 +412,17 @@ const AccountPage = component$(() => {
                 </Button>
               </div>
             </div>
-            <input
+            {/* <input
               type="text"
               class="w-full"
               placeholder="Wyszukaj transakcję ..."
-              v-model="searchInput"
-            />
+              bind:value={searchInput}
+            /> */}
+            <span>{searchInput.value}</span>
+            <span>{debouncedSearchInput.value}</span>
             <table>
               <thead>
-                <th>Status</th>
+                <th colSpan={2}>Status</th>
                 <th>Tytuł</th>
                 <th>Data</th>
                 <th>Odbiorca</th>
@@ -222,7 +438,7 @@ const AccountPage = component$(() => {
                     account={account.value}
                     key={`transaction-table-row-${t._id}`}
                     t={t}
-                    categoryName={categories.find((c) => c.id === t.categoryId)?.name || '-'}
+                    categoryName={getCategoryName(t.categoryId) || ''}
                   />
                 ))}
               </tbody>

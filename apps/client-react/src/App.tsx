@@ -16,9 +16,7 @@ const App = () => {
   return (
     <PageContainer>
       {!locationsWithoutsidebars.includes(location.pathname) && <NavigationSidebar />}
-
       <ContentContainer>
-        {/* <PageHeader /> */}
         <Routing />
       </ContentContainer>
       {!locationsWithoutsidebars.includes(location.pathname) && <OverviewSidebar />}
