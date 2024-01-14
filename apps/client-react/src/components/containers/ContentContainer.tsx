@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 
-const ContentContainer = ({ children }: React.PropsWithChildren) => {
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token')
-  // }, [])
-
-  return <div className="content-container">{children}</div>
+const ContentContainer = () => {
+  return (
+    <div className="content-container">
+      <Outlet />
+    </div>
+  )
 }
 
 export default ContentContainer

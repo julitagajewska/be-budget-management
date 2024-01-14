@@ -117,6 +117,7 @@ const ManageAccountModal = ({
               <span className="text-red-500">{error}</span>
             </div>
           )}
+
           <div className="flex flex-col gap-3">
             <Input
               label={'Nazwa konta'}

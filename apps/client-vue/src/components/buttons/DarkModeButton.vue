@@ -20,7 +20,6 @@ export default {
     const themeClasses = computed(() =>
       mode.value ? `${theme.value}-dark` : `${theme.value}-light`
     )
-    // const theme = computed(() => appSettingsStore.getTheme)
 
     const toggle = () => {
       appSettingsStore.toggleDarkMode()
@@ -52,7 +51,3 @@ export default {
     />
   </button>
 </template>
-
-<style scoped>
-/* Add your component-specific styles here */
-</style>

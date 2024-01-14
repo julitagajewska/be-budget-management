@@ -21,7 +21,8 @@ import utils from 'shared-utils'
 import Donut from '@/components/charts/Donut.vue'
 import dayjs from 'dayjs'
 import Bar from '@/components/charts/Bar.vue'
-import ButtonOptions from '@/components/buttons/ButtonOptions'
+// import ButtonOptions from '@/components/buttons/ButtonOptions'
+import TextWithDescription from '@/components/sections/TextWithDescription.vue'
 
 // STATE
 const transactions = ref<TransactionDTO[]>([])
@@ -167,7 +168,7 @@ watch([searchInput, filteredTransactions], () => {
         <Button @click="handleReturn" color="neutral" class="px-1 h-6">
           <ArrowLeft class="text-base" /> Powrót
         </Button>
-        <ButtonOptions />
+        <!-- <ButtonOptions /> -->
         <h1 class="text-lg text-background-800 font-semibold">{{ account?.name }}</h1>
       </div>
       <div class="flex flex-row gap-4">
@@ -185,21 +186,11 @@ watch([searchInput, filteredTransactions], () => {
       <div class="flex flex-col w-1/2 gap-3">
         <h2 class="text-md font-semibold text-background-700">Informacje ogólne</h2>
 
-        <div class="pl-4">
-          <h3 class="font-semibold text-background-700">Nazwa</h3>
-          <span class="text-background-600">{{ account?.name }}</span>
-        </div>
-
-        <div class="pl-4">
-          <h3 class="font-semibold text-background-700">Kategoria konta</h3>
-          <span class="text-background-600">{{ account?.category }}</span>
-        </div>
-
-        <div class="pl-4">
-          <h3 class="font-semibold text-background-700">Bilans</h3>
-          <span class="text-background-600">{{ account?.balance }} zł</span>
-        </div>
+        <TextWithDescription text="Nazwa konta" :description="account?.name" />
+        <TextWithDescription text="Kategoria konta" :description="account?.category" />
+        <TextWithDescription text="Bilans" :description="`${account?.balance} zł`" />
       </div>
+
       <div class="flex flex-col w-1/2 gap-2 justify-between">
         <h2 class="text-md font-semibold text-background-700">Podsumowanie liczbowe</h2>
 

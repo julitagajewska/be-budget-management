@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from '../views/general/HomePage'
 import AccountsListPage from '../views/accounts/AccountsListPage'
@@ -21,31 +20,34 @@ import TransactionPage from '../views/transactions/TransactionPage'
 import AccessDeniedPage from '../views/general/AccessDeniedPage'
 import TransactionsListPage from '../views/transactions/TransactionsListPage'
 import WelcomePage from '../views/general/WelcomePage'
+import PageContainer from '../components/containers/PageContainer'
 
 const Routing = () => {
   return (
     <Routes>
-      <Route path="/" element={<WelcomePage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/access-denied" element={<AccessDeniedPage />} />
-      <Route path="/accounts" element={<AccountsListPage />} />
-      <Route path="/accounts/:id" element={<AccountPage />} />
-      <Route path="/transactions" element={<TransactionsListPage />} />
-      <Route path="/transactions/incomes" element={<IncomesPage />} />
-      <Route path="/transactions/expenses" element={<ExpensesPage />} />
-      <Route path="/transactions/:id" element={<TransactionPage />} />
-      <Route path="/goals" element={<GoalsListPage />} />
-      <Route path="/goals/:id" element={<GoalPage />} />
-      <Route path="/budgets" element={<BudgetsListPage />} />
-      <Route path="/budgets/:id" element={<BudgetPage />} />
-      <Route path="/reports" element={<ReportsPage />} />
-      <Route path="/profile" element={<UserProfilePage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/help" element={<HelpPage />} />
-      <Route path="/logged-out" element={<LoggedOutPage />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="" element={<WelcomePage />} />
+      <Route path="/" element={<PageContainer />}>
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/access-denied" element={<AccessDeniedPage />} />
+        <Route path="/accounts" element={<AccountsListPage />} />
+        <Route path="/accounts/:id" element={<AccountPage />} />
+        <Route path="/transactions" element={<TransactionsListPage />} />
+        <Route path="/transactions/incomes" element={<IncomesPage />} />
+        <Route path="/transactions/expenses" element={<ExpensesPage />} />
+        <Route path="/transactions/:id" element={<TransactionPage />} />
+        <Route path="/goals" element={<GoalsListPage />} />
+        <Route path="/goals/:id" element={<GoalPage />} />
+        <Route path="/budgets" element={<BudgetsListPage />} />
+        <Route path="/budgets/:id" element={<BudgetPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/logged-out" element={<LoggedOutPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
     </Routes>
   )
 }

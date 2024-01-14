@@ -11,12 +11,13 @@ import { useCategories } from '~/api/categoriesAPI'
 import { AddTransactionModal } from '~/components/modal/transactions/AddTransactionModal'
 import { TransactionTableRow } from '~/components/table/TransactionTableRow'
 import { useNavigate } from '@builder.io/qwik-city'
-import { FilterTransactionsMenu } from '~/components/menu/FilterTransactionsMenu'
+// import { FilterTransactionsMenu } from '~/components/menu/FilterTransactionsMenu'
 import type { TransactionDTO } from 'shared-types'
 import { SummaryDoughnut } from '~/components/charts/accounts/SummaryDoughnut'
 import { TransactionsBarChart } from '~/components/charts/accounts/TransactionsBarChart'
 import { TransactionsDoughnutChart } from '~/components/charts/accounts/TransactionsDoughnutChart'
-import { baseUrl, temporaryId } from '~/api/apiSettings'
+// import { baseUrl, temporaryId } from '~/api/apiSettings'
+import TextWithDescription from '~/components/sections/TextWithDescription'
 
 export { useGetAccountById, useDeleteAccount, useEditAccount } from '~/api/accountsAPI'
 export {
@@ -120,9 +121,9 @@ const AccountPage = component$(() => {
     navigate('/accounts')
   })
 
-  const handleSetVisibleTransactions = $((filteredTransactions: TransactionDTO[]) => {
-    state.filteredTransactions = filteredTransactions
-  })
+  // const handleSetVisibleTransactions = $((filteredTransactions: TransactionDTO[]) => {
+  //   state.filteredTransactions = filteredTransactions
+  // })
 
   const handleSearch = $((transactions: TransactionDTO[], searchInput: string) => {
     if (searchInput) {
@@ -213,22 +214,12 @@ const AccountPage = component$(() => {
         <div class="flex flex-col w-1/2 gap-3">
           <h2 class="text-md font-semibold text-background-700">Informacje ogólne</h2>
 
-          <div class="pl-4">
-            <h3 class="font-semibold text-background-700">Nazwa</h3>
-            <span class="text-background-600">{account.value.name}</span>
-          </div>
-
-          <div class="pl-4">
-            <h3 class="font-semibold text-background-700">Kategoria konta</h3>
-            <span class="text-background-600">
-              {allCategories.value.find((c) => c.id === account.value.category)?.name}
-            </span>
-          </div>
-
-          <div class="pl-4">
-            <h3 class="font-semibold text-background-700">Bilans</h3>
-            <span class="text-background-600">{account.value.balance} zł</span>
-          </div>
+          <TextWithDescription text="Nazwa konta" description={account.value.name} />
+          <TextWithDescription
+            text="Kategoria konta"
+            description={allCategories.value.find((c) => c.id === account.value.category)?.name}
+          />
+          <TextWithDescription text="Bilans" description={`${account.value.balance} zł`} />
         </div>
 
         <div class="flex flex-col w-1/2 gap-2 justify-between">

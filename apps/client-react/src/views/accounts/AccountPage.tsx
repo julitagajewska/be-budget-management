@@ -159,7 +159,7 @@ const AccountPage = () => {
   }, [search, filteredTransactions])
 
   return (
-    <ContentContainer>
+    <div>
       {isAccountSuccess && isCategoriesSuccess && (
         <div className="flex flex-col justify-start gap-8">
           <div className="flex flex-row justify-between items-end w-full">
@@ -370,7 +370,7 @@ const AccountPage = () => {
         handleOpen={() => setTransactionModalOpen(true)}
         handleClose={() => setTransactionModalOpen(false)}
       />
-    </ContentContainer>
+    </div>
   )
 }
 

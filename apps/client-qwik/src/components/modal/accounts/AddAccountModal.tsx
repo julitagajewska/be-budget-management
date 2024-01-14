@@ -1,5 +1,5 @@
 import type { QRL } from '@builder.io/qwik'
-import { component$, $, useStore } from '@builder.io/qwik'
+import { component$, $, useStore, useSignal } from '@builder.io/qwik'
 import { Modal } from '../Modal'
 import type { AccountDTO } from 'shared-types'
 import { useCategories } from '~/api/categoriesAPI'
@@ -16,6 +16,8 @@ type AddAccountModalProps = {
 export const AddAccountModal = component$(({ close }: AddAccountModalProps) => {
   const categories = useCategories()
   const addAccount = useAddAccount()
+
+  const name = useSignal<string>()
 
   const state = useStore({
     name: '',
@@ -51,11 +53,7 @@ export const AddAccountModal = component$(({ close }: AddAccountModalProps) => {
       <Modal title="Nowe konto" handleConfirm={handleConfirm} handleCancel={handleCancel}>
         <div class="flex flex-col gap-1">
           <label for="account-name-input">Nazwa </label>
-          <input
-            id="account-name-input"
-            type="text"
-            onInput$={(e) => (state.name = (e.target as HTMLInputElement).value)}
-          />
+          <input id="account-name-input" type="text" bind:value={name} />
         </div>
 
         <div class="flex flex-col gap-1">

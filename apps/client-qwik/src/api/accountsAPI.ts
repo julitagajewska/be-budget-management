@@ -32,19 +32,13 @@ export const useGetAccountById = routeLoader$(async (requestEvent) => {
 })
 
 export const useAddAccount = routeAction$(async (accountData: Partial<AccountDTO>) => {
-  console.log(accountData)
-
-  const response = await fetch(`${baseUrl}/accounts`, {
+  await fetch(`${baseUrl}/accounts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ ...accountData, user: temporaryId })
   })
-
-  const createdAccount = await response.json()
-
-  console.log(createdAccount)
 })
 
 export const useEditAccount = routeAction$(async (updatedData: Partial<AccountDTO>) => {

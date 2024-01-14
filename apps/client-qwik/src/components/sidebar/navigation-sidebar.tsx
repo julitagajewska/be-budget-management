@@ -1,12 +1,34 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, $, useContext } from '@builder.io/qwik'
 import { SidebarContainer } from './sidebar-container'
 import { Link } from '@builder.io/qwik-city'
+import { Button } from '../buttons/Button'
+import { DarkModeContext, ThemeContext, themes } from '~/context/appContext'
 
 const NavigationSidebar = component$(() => {
+  const darkMode = useContext(DarkModeContext)
+
+  const handleToggleDarkMode = $(() => {
+    darkMode.value = !darkMode.value
+  })
+
+  const theme = useContext(ThemeContext)
+
+  const handleToggleTheme = $(() => {
+    theme.value = themes[(theme.value.id + 1) % themes.length]
+  })
+
   return (
     <SidebarContainer>
+      {/* ... */}
       <div>
         <div>Logo + nowa transakcja</div>
+
+        <div>
+          <Button onClick={handleToggleDarkMode}>Tryb {darkMode.value ? 'jasny' : 'ciemny'}</Button>
+          <Button onClick={handleToggleTheme}>
+            Zmień kolory na: schemat {themes[(theme.value.id + 1) % themes.length].label}
+          </Button>
+        </div>
 
         <div>
           <Link href="/" class="sidebar-link">

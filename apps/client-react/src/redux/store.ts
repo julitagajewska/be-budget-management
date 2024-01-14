@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import currentUserReducer from './slices/currentUserSlice'
 import pageHeaderReducer from './slices/pageHeaderSlice'
 import monthPickerReducer from './slices/monthPickerSlice'
+import themeReducer from './slices/themeSlice'
 import { apiSlice } from './api/apiSlice'
 
 export const store = configureStore({
@@ -9,7 +10,8 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     currentUser: currentUserReducer,
     pageHeader: pageHeaderReducer,
-    monthPicker: monthPickerReducer
+    monthPicker: monthPickerReducer,
+    theme: themeReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware)
 })

@@ -4,7 +4,6 @@ import { setPageHeaderState } from '../../redux/slices/pageHeaderSlice'
 import { RootState } from '../../redux/store'
 import { useGetUsersAccountsQuery } from '../../redux/api/slices/accountSlice'
 import AccountTile from '../../components/tile/AccountTile'
-import ContentContainer from '../../components/containers/ContentContainer'
 import AddAccountButton from '../../components/page-header/buttons/AddAccountButton'
 import { ToastContainer } from 'react-toastify'
 
@@ -28,16 +27,26 @@ const AccountsListPage = () => {
   }, [])
 
   return (
-    <ContentContainer>
+    <div>
       <div className="flex flex-row justify-between items-center w-full">
         <h1>Twoje konta</h1>
         <AddAccountButton />
+        {/* <ButtonClass
+          text="Test button"
+          icon={<Plus />}
+          handleClick={() => alert('Button clicked!')}
+        />
+        <ButtonFunction
+          text="Test button"
+          icon={<Plus />}
+          handleClick={() => alert('Button clicked!')}
+        /> */}
       </div>
       <div className="grid grid-cols-3 gap-6 mt-4">
         {data?.map((a) => <AccountTile account={a} />)}
       </div>
       <ToastContainer />
-    </ContentContainer>
+    </div>
   )
 }
 
