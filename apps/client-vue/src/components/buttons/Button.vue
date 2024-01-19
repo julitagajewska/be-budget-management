@@ -17,10 +17,17 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   color: 'primary',
   size: 'small'
 })
+
+const handleClick = () => {
+  console.log('Button clicked!')
+}
 </script>
 
 <template>
-  <button :class="`${baseClasses} ${colors[props.color]} ${sizes[props.size]}`">
+  <button
+    @click="handleClick()"
+    :class="`${baseClasses} ${colors[props.color]} ${sizes[props.size]}`"
+  >
     <slot></slot>
   </button>
 </template>

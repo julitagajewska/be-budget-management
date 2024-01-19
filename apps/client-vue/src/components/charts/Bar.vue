@@ -17,7 +17,6 @@ import utils from 'shared-utils'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 // PROPS
-// PROPS
 type BarChartProps = {
   transactions: TransactionDTO[]
   dataType: 'SUM' | 'COUNT'

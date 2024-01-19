@@ -64,9 +64,6 @@ export default {
   <div
     :class="`${themeClasses} text-text-900 font-mulish w-full min-h-[100vh] relative bg-background-50 flex flex-col justify-start items-start`"
   >
-    <!-- <button @click="toggleVisibility">Toggle</button>
-    <Navbar v-if="visible" /> -->
-
     <div class="flex flex-row justify-between h-full w-full px-5 py-5 gap-5 overflow-auto">
       <NavigationSidebar v-if="isLoggedIn" />
 

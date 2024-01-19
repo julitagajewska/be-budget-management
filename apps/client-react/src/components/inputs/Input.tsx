@@ -53,12 +53,7 @@ const Input = ({
   variant = 'small',
   min
 }: InputProps) => {
-  // const [value, setValue] = useState('')
-  const [errorMessage, setErrorMessage] = useState<string[]>([
-    // 'Here is very long error message.'
-    // 'Here is very long error message. Here is very long error message.',
-    // 'Here is very long error message. Here is very long error message. Here is very long error message.'
-  ])
+  const [errorMessage, setErrorMessage] = useState<string[]>([])
 
   const [labelClass, setLabelClass] = useState<keyof typeof highlightClasses>('labelBase')
 

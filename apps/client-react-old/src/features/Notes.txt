@@ -1,3 +1,0 @@
-- Each folder is for a unique feature
-- Folder contains all the data neccessary for that feature to work
-- Index.js exports everything for one feature so it can be used in pages files

@@ -25,6 +25,11 @@ import { Check } from './Check'
 import { Trash } from './Trash'
 import { Alarm } from './Alarm'
 import { Other } from './Other'
+import { BasilSunOutline } from './Sun'
+import { BasilMoonOutline } from './Moon'
+import { LogosQwikIcon } from './logo/Qwik'
+import { LogosVue } from './logo/Vue'
+import { LogosReact } from './logo/React'
 
 export {
   CaretUp,
@@ -53,5 +58,10 @@ export {
   Check,
   Trash,
   Alarm,
-  Other
+  Other,
+  BasilSunOutline as Sun,
+  BasilMoonOutline as Moon,
+  LogosQwikIcon as QwikLogo,
+  LogosVue as VueLogo,
+  LogosReact as ReactLogo
 }

@@ -70,22 +70,22 @@ const LoginPage = () => {
 
           <div className="flex flex-col justify-center items-start w-full gap-3 pt-4">
             <span className="text-red-600">{error}</span>
-            <Input
+            {/* <Input
               label={'Adres e-mail'}
               type={'email'}
               placeholder={'Podaj adres e-mail ...'}
               Icon={Envelope}
               handleChange={handleEmailChange}
-            />
+            /> */}
 
             <div className="flex flex-col relative w-full gap-2">
-              <Input
+              {/* <Input
                 label={'Hasło'}
                 type={'password'}
                 placeholder={'Podaj hasło ...'}
                 Icon={Lock}
                 handleChange={handlePasswordChange}
-              />
+              /> */}
               <div className="flex flex-row w-full justify-between items-center">
                 <div className="flex flex-row gap-2">
                   <input type="checkbox" id="remember-me-checkbox" />

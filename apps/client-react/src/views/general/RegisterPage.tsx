@@ -106,7 +106,7 @@ const RegisterPage = () => {
           </h1>
 
           <div className="flex flex-col justify-center items-start w-full gap-3 mt-4">
-            <Input
+            {/* <Input
               label={'Nazwa użytkownika'}
               type={'text'}
               placeholder={'Podaj nazwę użytkownika ...'}
@@ -136,7 +136,7 @@ const RegisterPage = () => {
               placeholder={'Potwierdź hasło ...'}
               Icon={Lock}
               handleChange={handleConfirmPasswordChange}
-            />
+            /> */}
           </div>
 
           <div className="flex flex-col w-full justify-center items-center gap-4 mt-4">

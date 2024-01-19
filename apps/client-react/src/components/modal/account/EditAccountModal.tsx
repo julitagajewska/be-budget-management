@@ -58,7 +58,7 @@ const EditAccountModal = ({ open, handleOpen, handleClose }: EditAccountModalPro
   }
 
   const handleCategoryClose = () => {
-    handleOpen()
+    if (handleOpen) handleOpen()
     setCategoryOpen(false)
   }
 

@@ -10,7 +10,7 @@ const variants: Record<Variant, string> = {
 
 type Size = 'small' | 'medium' | 'large'
 const sizes: Record<Size, string> = {
-  small: 'h-6 pl-2 pr-4 text-xs rounded-md w-max gap-2 button-small',
+  small: 'h-6 pl-2 pr-4 text-xs rounded-md gap-2 button-small',
   medium: 'h-8 pl-4 pr-6 text-base rounded-lg w-max gap-2',
   large: 'h-10 pl-6 pr-8 text-base rounded-xl w-max gap-2'
 }
@@ -73,10 +73,11 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`${classesBase} ${sizeClasses} ${colors[color]} ${variants[variant]} ${className}`}
+      // className={`${classesBase} ${sizeClasses} ${colors[color]} ${variants[variant]} ${className}`}
+      className={`${sizeClasses} bg-primary-600 rounded-md w-full h-6 flex flex-row items-center justify-center text-text-50 text-sm gap-2 overflow-hidden ${sizeClasses}`}
     >
       {IconLeft && <IconLeft className={`${iconSizes[size]} ${iconClassName}`} />}
-      <span>{text}</span>
+      <span className="w-full text-ellipsis overflow-hidden text-nowrap">{text}</span>
       {IconRight && <IconRight className={`${iconSizes[size]} ${iconClassName}`} />}
     </button>
   )

@@ -3,7 +3,7 @@ import ContentContainer from '../../components/containers/ContentContainer'
 
 const WelcomePage = () => {
   console.log('Welcome page!')
-  return <div>AAAAAAAAAAAAAA</div>
+  return <div>Landing page</div>
 }
 
 export default WelcomePage

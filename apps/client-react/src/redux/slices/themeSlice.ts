@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export type ThemeLabel = 'react' | 'vue' | 'qwik'
 
@@ -36,10 +36,23 @@ export const themeSlice = createSlice({
   reducers: {
     toggleTheme: (state) => {
       state.selectedTheme = themes[(state.selectedTheme.id + 1) % 3]
+    },
+    setTheme: (state, action: PayloadAction<ThemeLabel>) => {
+      switch (action.payload) {
+        case 'react':
+          state.selectedTheme = themes[0]
+          break
+        case 'vue':
+          state.selectedTheme = themes[1]
+          break
+        case 'qwik':
+          state.selectedTheme = themes[2]
+          break
+      }
     }
   }
 })
 
-export const { toggleTheme } = themeSlice.actions
+export const { toggleTheme, setTheme } = themeSlice.actions
 
 export default themeSlice.reducer

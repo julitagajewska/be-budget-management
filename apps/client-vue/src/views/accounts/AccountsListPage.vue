@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue'
 import Button from '@/components/buttons/Button.vue'
 import Plus from '@/components/icons/Plus.vue'
 import AddAccountModal from '@/components/modal/account/AddAccountModal.vue'
+import ButtonOptions from '@/components/buttons/ButtonOptions.vue'
 
 // STATE
 const isAddAccountModalOpen = ref<boolean>(false)
@@ -36,7 +37,10 @@ onMounted(getAccounts)
   <div class="flex flex-col pt-6 gap-6">
     <div class="flex flex-row w-full justify-between">
       <h1 class="text-md font-bold text-background-700">Konta</h1>
-      <Button @click="openAddAccountModal"><Plus class="text-md" /> Nowe konto</Button>
+      <div class="flex flex-row gap-2">
+        <Button @click="openAddAccountModal"><Plus class="text-md" /> Nowe konto</Button>
+        <ButtonOptions><Plus class="text-md" /> Nowe konto (Options API)</ButtonOptions>
+      </div>
     </div>
 
     <div class="flex flex-row flex-wrap">

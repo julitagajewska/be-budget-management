@@ -1,6 +1,6 @@
-import { component$ } from '@builder.io/qwik';
-import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister } from '@builder.io/qwik-city';
-import { RouterHead } from './components/router-head/router-head';
+import { component$ } from '@builder.io/qwik'
+import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister } from '@builder.io/qwik-city'
+import { RouterHead } from './components/router-head/router-head'
 
 import 'tailwind-config/index.css'
 
@@ -24,5 +24,5 @@ export default component$(() => {
         <ServiceWorkerRegister />
       </body>
     </QwikCityProvider>
-  );
-});
+  )
+})

@@ -20,7 +20,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     editUser: builder.mutation({
       query: (category: Partial<TransactionDTO>) => ({
-        url: `/users/${category.id}`,
+        url: `/users/${category._id}`,
         method: 'PTACH',
         body: category
       }),

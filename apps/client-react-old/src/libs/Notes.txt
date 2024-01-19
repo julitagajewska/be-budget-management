@@ -1,3 +1,0 @@
-- Wrapper for an external library
-- Changes to a library affect only one import
-- Facade design pattern
