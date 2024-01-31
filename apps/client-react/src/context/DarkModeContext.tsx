@@ -15,7 +15,7 @@ type DarkModeContextType = {
 export const DarkModeContext = createContext<DarkModeContextType | null>(null)
 
 export const DarkModeContextProvider = ({ children }: PropsWithChildren) => {
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
 
   const value = useMemo(() => ({ darkMode, setDarkMode }), [darkMode])
 

@@ -1,6 +1,6 @@
 import { AccountDTO, CategoryDTO, TransactionDTO } from 'shared-types'
 
-const temporaryId = '6546a20d7b908bebe9ec9ad4'
+const temporaryId = '65b2ea6dff8304ca54139790'
 const baseUrl = 'http://localhost:8080'
 
 export default {

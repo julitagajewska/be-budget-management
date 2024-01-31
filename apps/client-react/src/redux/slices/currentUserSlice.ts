@@ -7,9 +7,9 @@ interface CurrentUserState {
 
 const initialState: CurrentUserState = {
   currentUser: {
-    id: '6546a20d7b908bebe9ec9ad4',
-    username: 'JanKowalski123',
-    email: 'j.kowalski@gmail.com'
+    id: '65b2ea6dff8304ca54139790',
+    username: 'Jan Kowalski',
+    email: 'Jan Kowalski'
   }
 }
 

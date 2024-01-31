@@ -64,13 +64,17 @@ const TransactionsTableRow = ({ transaction, categories }: TransactionsTableRowP
           open={menuOpen}
           setOpen={setMenuOpen}
         >
-          <Button
+          {/* <Button
             variant="icon-only"
-            color="neutral"
+            className="text-xl"
+            color="transparent"
             IconLeft={Other}
             size="small"
             onClick={handleMenuOpen}
-          />
+          /> */}
+          <button onClick={handleMenuOpen} className="p-1 hover:bg-background-200 rounded-md">
+            <Other />
+          </button>
         </Popup>
       </td>
       <DeleteTransactionModal

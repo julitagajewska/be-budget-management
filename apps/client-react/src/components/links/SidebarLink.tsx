@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
 import { SidebarLinkType } from 'shared-types'
 import { CaretDown } from '../icons'
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 
 type SidebarLinkProps = {
   link: SidebarLinkType
   tabIndex: 0 | -1
+  Icon?: React.ElementType
 }
 
-const SidebarLink = ({ link, tabIndex }: SidebarLinkProps) => {
+const SidebarLink = ({ link, tabIndex, Icon }: SidebarLinkProps) => {
   const [open, setOpen] = useState(false)
 
   const toggle = () => {
@@ -41,6 +42,7 @@ const SidebarLink = ({ link, tabIndex }: SidebarLinkProps) => {
 
   return (
     <Link to={link.to} className="sidebar-link" tabIndex={tabIndex}>
+      {Icon && <Icon />}
       {link.label}
     </Link>
   )

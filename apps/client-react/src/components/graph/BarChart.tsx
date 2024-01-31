@@ -130,7 +130,7 @@ export const BarChart = ({ transactionType, dataType, startDate, endDate }: BarC
   }
 
   return (
-    <div>
+    <div className="w-[80%]">
       <Bar
         options={{}}
         data={{

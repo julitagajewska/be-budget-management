@@ -230,7 +230,7 @@ const FilterTransactionsMenu = ({
     <div
       className={`${
         open ? 'w-72 visible' : 'w-[0px] hidden'
-      } transition-all duration-300 ease-in-out overflow-hidden h-full bg-text-50 flex flex-col justify-between shadow-md rounded-md max-h-[500px] gap-4 py-6 pl-6 pr-3`}
+      } transition-all duration-300 ease-in-out overflow-hidden shadow-large h-full bg-background-50 flex flex-col justify-between shadow-xl rounded-md max-h-[500px] gap-4 py-6 pl-6 pr-3`}
     >
       <div className="flex flex-col gap-4 h-full overflow-auto">
         <h3 className="text-md font-semibold">Filtrowanie</h3>

@@ -166,7 +166,7 @@ const DonutChart = ({ transactionType, dataType, half }: DonutChartProps) => {
   }
 
   return (
-    <div>
+    <div className="w-[80%] flex flex-row justify-center">
       <Doughnut
         options={{
           plugins: {

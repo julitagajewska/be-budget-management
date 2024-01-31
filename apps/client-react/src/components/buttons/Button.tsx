@@ -10,9 +10,9 @@ const variants: Record<Variant, string> = {
 
 type Size = 'small' | 'medium' | 'large'
 const sizes: Record<Size, string> = {
-  small: 'h-6 pl-2 pr-4 text-xs rounded-md gap-2 button-small',
-  medium: 'h-8 pl-4 pr-6 text-base rounded-lg w-max gap-2',
-  large: 'h-10 pl-6 pr-8 text-base rounded-xl w-max gap-2'
+  small: 'h-6 pl-2 pr-4 text-xs rounded-md gap-1 button-small',
+  medium: 'h-8 pl-4 pr-6 text-base rounded-lg w-max gap-1',
+  large: 'h-10 pl-6 pr-8 text-base rounded-xl w-max gap-1'
 }
 
 const iconSizes: Record<Size, string> = {
@@ -22,7 +22,7 @@ const iconSizes: Record<Size, string> = {
 }
 
 const iconOnlySizes: Record<Size, string> = {
-  small: 'h-6 px-[2px] text-xl rounded-md',
+  small: 'h-6 px-[2px] text-3xl rounded-md',
   medium: 'h-8 px-1 text-2xl rounded-lg',
   large: 'h-10 px-[6px] text-3xl rounded-xl'
 }
@@ -32,7 +32,7 @@ const colors: Record<Color, string> = {
   primary: 'text-text-50 bg-primary-600 hover:bg-primary-700 react-primary',
   secondary: 'shadow-secondary',
   transparent: 'text-primary-700 bg-transparent hover:bg-primary-500 hover:bg-opacity-20',
-  neutral: 'text-neutral-700 bg-transparent hover:bg-neutral-500 hover:bg-opacity-20'
+  neutral: 'text-neutral-700 bg-neutral-200 hover:bg-neutral-500 hover:bg-opacity-20'
 }
 
 type ButtonProps = {
@@ -74,7 +74,7 @@ const Button = ({
       type={type}
       onClick={onClick}
       // className={`${classesBase} ${sizeClasses} ${colors[color]} ${variants[variant]} ${className}`}
-      className={`${sizeClasses} bg-primary-600 rounded-md w-full h-6 flex flex-row items-center justify-center text-text-50 text-sm gap-2 overflow-hidden ${sizeClasses}`}
+      className={`${sizeClasses} rounded-md w-full h-6 flex flex-row items-center justify-center text-sm gap-2 overflow-hidden ${sizeClasses} ${colors[color]} ${className}`}
     >
       {IconLeft && <IconLeft className={`${iconSizes[size]} ${iconClassName}`} />}
       <span className="w-full text-ellipsis overflow-hidden text-nowrap">{text}</span>

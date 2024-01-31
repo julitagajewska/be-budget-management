@@ -13,7 +13,7 @@ export const reactLight = {
     950: '#030816',
   },
   background: {
-    50: '#f2f2f2',
+    50: '#ffffff',
     100: '#e6e6e6',
     200: '#cccccc',
     300: '#b3b3b3',

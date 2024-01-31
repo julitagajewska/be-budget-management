@@ -5,6 +5,7 @@ export type ThemeLabel = 'react' | 'vue' | 'qwik'
 type Theme = {
   id: number
   label: ThemeLabel
+  displayedName: string
 }
 
 export interface ThemeState {
@@ -14,15 +15,18 @@ export interface ThemeState {
 export const themes: Theme[] = [
   {
     id: 0,
-    label: 'react'
+    label: 'react',
+    displayedName: 'React'
   },
   {
     id: 1,
-    label: 'vue'
+    label: 'vue',
+    displayedName: 'Vue'
   },
   {
     id: 2,
-    label: 'qwik'
+    label: 'qwik',
+    displayedName: 'Qwik'
   }
 ]
 

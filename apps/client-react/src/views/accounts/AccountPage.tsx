@@ -36,6 +36,7 @@ import { BarChart } from '../../components/graph/BarChart'
 import dayjs from 'dayjs'
 import TransactionsTableRow from '../../components/table/TransactionsTableRow'
 import FilterTransactionsMenu from '../../components/menu/FilterTransactionsMenu'
+import { formatCurrency } from 'shared-utils/utils/formatCurrency'
 
 const AccountPage = () => {
   ChartJS.register(ArcElement, ChartTooltip, Legend, CategoryScale, LinearScale, BarElement)
@@ -66,6 +67,13 @@ const AccountPage = () => {
   const [filteredTransactions, setFilteredTransactions] = useState<TransactionDTO[]>([])
   const [visibleTransactions, setVisibleTransactions] = useState<TransactionDTO[]>([])
 
+  const [incomesSum, setIncomesSum] = useState(
+    accountTransactions.filter((t) => !t.isExpense).reduce((prev, curr) => prev + curr.value, 0)
+  )
+  const [expensesSum, setExpensesSum] = useState(
+    accountTransactions.filter((t) => t.isExpense).reduce((prev, curr) => prev + curr.value, 0)
+  )
+
   useEffect(() => {
     if (transactions) {
       let accountTransactions = transactions?.filter((t) => t.accountId === id)
@@ -74,6 +82,12 @@ const AccountPage = () => {
       setTransactionCategories(filteredCategories || [])
       setAccountTransactions(accountTransactions)
       setVisibleTransactions(accountTransactions)
+      setIncomesSum(
+        accountTransactions.filter((t) => !t.isExpense).reduce((prev, curr) => prev + curr.value, 0)
+      )
+      setExpensesSum(
+        accountTransactions.filter((t) => t.isExpense).reduce((prev, curr) => prev + curr.value, 0)
+      )
     }
   }, [transactions])
 
@@ -161,20 +175,21 @@ const AccountPage = () => {
   return (
     <div>
       {isAccountSuccess && isCategoriesSuccess && (
-        <div className="flex flex-col justify-start gap-8">
-          <div className="flex flex-row justify-between items-end w-full">
-            <div className="flex flex-col items-start">
-              <Tooltip text="Powrót" side="right">
+        <div className="flex flex-col justify-start gap-6">
+          <div className="flex flex-row justify-between items-end w-full pt-6">
+            <div className="flex flex-row gap-4 items-center">
+              <Tooltip text="Powrót" side="bottom">
                 <Button
-                  variant="icon-only"
+                  // variant="icon-only"
                   color="neutral"
-                  // text="Powrót"
+                  fullWidth={false}
+                  text="Powrót"
                   IconLeft={ArrowLeft}
                   size="small"
                   onClick={() => navigate('/accounts')}
                 />
               </Tooltip>
-              <h1 className="text-lg font-bold text-background-800">{account?.name}</h1>
+              <h1 className="text-lg text-background-800 font-semibold">{account?.name}</h1>
             </div>
 
             <div className="flex flex-row gap-4">
@@ -182,25 +197,49 @@ const AccountPage = () => {
               <EditAccountButton />
             </div>
           </div>
-          <div className="w-full flex flex-row items-start justify-between">
-            <div className="flex flex-col gap-3 w-1/2">
-              <h2 className="text-base font-bold">Inrofmacje ogólne</h2>
-              <div className="flex flex-col gap-2">
+          <div className="flex flex-row justify-between gap-4">
+            <div className="flex flex-col w-1/2 gap-3">
+              <h2 className="text-md font-semibold text-background-700">Informacje ogólne</h2>
+              <div className="flex flex-col gap-4 pl-4">
                 <TextWithDescription text="Nazwa" description={account.name} />
                 <TextWithDescription text="Rodzaj konta" description={accountCategory?.name} />
-                <TextWithDescription text="Bilans" description={`${account.balance} zł`} />
+                <TextWithDescription
+                  text="Bilans"
+                  description={formatCurrency(incomesSum - expensesSum)}
+                />
               </div>
             </div>
 
             <div className="flex flex-col w-1/2">
-              <h2 className="text-base font-bold">Podsumowanie liczbowe</h2>
+              <h2 className="text-md font-semibold text-background-700">Podsumowanie liczbowe</h2>
               <DonutChart transactionType={transactionsType} dataType={dataType} half />
+              <div className="w-full flex flex-row justify-center items-center gap-4">
+                <div className="flex flex-col gap-1 w-48">
+                  <span className="text-sm text-background-600">Dochody</span>
+                  <div className="flex flex-row gap-2">
+                    <div className="w-4 h-4 rounded-[4px] bg-[#8dbe88]"></div>
+                    <span className="text-xs font-bold text-background-600">
+                      {formatCurrency(incomesSum)}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1 w-48">
+                  <span className="text-sm text-background-600">Wydatki</span>
+                  <div className="flex flex-row gap-2">
+                    <div className="w-4 h-4 rounded-[4px] bg-[#e68080]"></div>
+                    <span className="text-xs font-bold text-background-600">
+                      {formatCurrency(expensesSum)}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="flex flex-row w-full justify-between items-start">
             <div className="flex flex-col justify-between items-start w-1/2 gap-4">
-              <h2 className="text-base font-bold">Podsumowanie liczbowe</h2>
+              <h2 className="text-md font-semibold text-background-700">Podsumowanie liczbowe</h2>
               <div className="flex flex-col gap-2 pl-4">
                 <h3 className="text-sm font-bold text-background-600">Rodzaj transakcji</h3>
                 <div className="flex flex-row gap-6 pl-4">
@@ -280,8 +319,8 @@ const AccountPage = () => {
             </div>
 
             <div className="flex flex-col justify-between items-start w-1/2">
-              <h2 className="text-base font-bold">Wykres</h2>
-              <div className="w-96">
+              <h2 className="text-md font-semibold text-background-700">Wykres</h2>
+              <div className="w-[80%] flex flex-row justify-center">
                 {selectedGraphType == 0 && (
                   <BarChart
                     transactionType={transactionsType}
@@ -299,7 +338,7 @@ const AccountPage = () => {
           </div>
 
           <div className="flex flex-col w-full gap-3">
-            <h2 className="text-base font-bold">Lista transakcji</h2>
+            <h2 className="text-md font-semibold text-background-700">Lista transakcji</h2>
             <div className="flex flex-row gap-6">
               <FilterTransactionsMenu
                 open={filterMenuOpen}
@@ -310,26 +349,31 @@ const AccountPage = () => {
               <div className="flex flex-col w-full gap-4">
                 <div className="flex flex-row items-center w-full">
                   <div className="flex flex-row items-center w-full gap-6">
-                    <Button
-                      text="Filtruj"
-                      IconLeft={Filter}
-                      size="small"
-                      iconClassName="text-md"
-                      onClick={() => setFilterMenuOpen(!filterMenuOpen)}
-                    />
-                    <Checkbox
-                      label="Pokaż szczegółowe dane"
-                      id="details-checkbox"
-                      checked={false}
-                      handleChange={() => {}}
-                    />
+                    <div>
+                      <Button
+                        text="Filtruj"
+                        IconLeft={Filter}
+                        size="small"
+                        iconClassName="text-md"
+                        onClick={() => setFilterMenuOpen(!filterMenuOpen)}
+                      />
+                    </div>
+                    <div>
+                      <Checkbox
+                        label="Pokaż szczegółowe dane"
+                        id="details-checkbox"
+                        checked={false}
+                        handleChange={() => {}}
+                      />
+                    </div>
                   </div>
-                  <div>
+                  <div className="w-52">
                     <Button
                       text="Dodaj transakcję"
                       onClick={() => setTransactionModalOpen(true)}
                       IconLeft={Plus}
                       size="small"
+                      className="w-36"
                     />
                   </div>
                 </div>

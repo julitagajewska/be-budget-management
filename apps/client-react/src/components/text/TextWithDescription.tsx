@@ -6,8 +6,8 @@ type TextWithDescriptionProps = {
 const TextWithDescription = ({ text, description }: TextWithDescriptionProps) => {
   return (
     <div>
-      <h3 className="text-sm font-bold">{text}</h3>
-      <span className="text-sm text-background-600">{description ? description : '-'}</span>
+      <h3 className="font-semibold text-background-700">{text}</h3>
+      <span className="text-background-600">{description ? description : '-'}</span>
     </div>
   )
 }

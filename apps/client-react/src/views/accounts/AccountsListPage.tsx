@@ -27,9 +27,9 @@ const AccountsListPage = () => {
   }, [])
 
   return (
-    <div>
+    <div className="flex flex-col pt-6 gap-6">
       <div className="flex flex-row justify-between items-center w-full">
-        <h1>Twoje konta</h1>
+        <h1 className="text-md font-bold text-background-700">Konta</h1>
         <AddAccountButton />
         {/* <ButtonClass
           text="Test button"
@@ -42,7 +42,7 @@ const AccountsListPage = () => {
           handleClick={() => alert('Button clicked!')}
         /> */}
       </div>
-      <div className="grid grid-cols-3 gap-6 mt-4">
+      <div className="grid grid-cols-4 gap-6 mt-4">
         {data?.map((a) => <AccountTile account={a} />)}
       </div>
       <ToastContainer />

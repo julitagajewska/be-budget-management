@@ -13,15 +13,17 @@ const AccountTile = ({ account }: AccountTileProps) => {
 
   return (
     <div
-      className="flex flex-row justify-start items-center gap-4 bg-background-50 w-full pl-4 pr-12 py-3 rounded-md shadow-md hover:bg-primary-600 hover:bg-opacity-10 transition-all duration-150 ease-out hover:shadow-lg cursor-pointer"
+      className="group flex flex-row justify-start items-center gap-4 bg-background-50 w-full pl-4 pr-12 py-3 rounded-md shadow-md hover:bg-primary-700 hover:bg-opacity-[0.5] transition-all duration-150 ease-out hover:shadow-lg cursor-pointer"
       onClick={() => navigate(`/accounts/${account._id}`)}
     >
-      <div className="bg-background-50 p-3 rounded-full">
+      <div className="bg-background-100 p-3 rounded-full group-hover:bg-background-50">
         <Bag className="text-xl" />
       </div>
       <div className="flex flex-col justify-start items-start">
         <span className="text-base font-medium">{account.name}</span>
-        <span className="text-xs text-background-500">{account.balance} zł</span>
+        <span className="text-xs text-background-500 group-hover:text-background-100">
+          {account.balance} zł
+        </span>
       </div>
     </div>
   )

@@ -1,9 +1,9 @@
 <script lang="ts">
 import Logo from '@/components/logo/Logo.vue'
 import { ref } from 'vue'
-import { useUserStore } from '@stores/UserStore'
-import { router } from '@/main'
-import { login } from '@api/UserAPI'
+// import { useUserStore } from '@stores/UserStore'
+// import { router } from '@/main'
+// import { login } from '@api/UserAPI'
 
 export default {
   props: [],
@@ -12,7 +12,7 @@ export default {
   },
   setup() {
     // USER STORE
-    const userStore = useUserStore()
+    // const userStore = useUserStore()
 
     // FORM INPUTS
     const email = ref('')
@@ -21,17 +21,15 @@ export default {
 
     async function handleSubmit() {
       try {
-        login(email.value, password.value).then((response: any) => {
-          if (response.status === 400) {
-            alert.value = 'Wprowadzono błędne dane'
-          } else {
-            console.log(response.data)
-            userStore.login(response.token)
-            router.push('/')
-            console.log(userStore.isLoggedIn)
-          }
-        })
-
+        // login(email.value, password.value).then((response: any) => {
+        //   if (response.status === 400) {
+        //     alert.value = 'Wprowadzono błędne dane'
+        //   } else {
+        //     console.log(response.data)
+        //     userStore.login(response.token)
+        //     router.push('/')
+        //     console.log(userStore.isLoggedIn)
+        //   }
         // if (response.status === 200) {
         //   // Login successful
         //   userStore.login(response.token)
@@ -43,6 +41,7 @@ export default {
         //   // Handle other status codes as needed
         //   alert.value = 'Wystąpił błąd podczas logowania'
         // }
+        // })
       } catch (error) {
         console.error(error)
         alert.value = 'Wystąpił błąd podczas logowania'

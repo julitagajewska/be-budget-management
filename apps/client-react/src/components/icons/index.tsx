@@ -1,7 +1,6 @@
 import { ArrowLeft } from './ArrowLeft'
 import { CaretDown } from './CaretDown'
 import { Envelope } from './Envelope'
-import { User } from './User'
 import { UserOutlined } from './UserOutlined'
 import { Lock } from './Lock'
 import { CaretUp } from './CaretUp'
@@ -30,6 +29,16 @@ import { BasilMoonOutline } from './Moon'
 import { LogosQwikIcon } from './logo/Qwik'
 import { LogosVue } from './logo/Vue'
 import { LogosReact } from './logo/React'
+import { BasilSettingsAdjustOutline } from './SettingsAdjust'
+import { BasilHomeOutline } from './Home'
+import { BasilExchangeOutline } from './Exchange'
+import { BasilStarOutline } from './Star'
+import { BasilWalletOutline } from './Wallet'
+import { BasilChartPieOutline } from './Chart'
+import { BasilInfoCircleOutline } from './Info'
+import { BasilUserOutline } from './User'
+import { BasilSettingsAltOutline } from './Settings'
+import { BasilLogoutOutline } from './Logout'
 
 export {
   CaretUp,
@@ -37,7 +46,7 @@ export {
   CaretLeft,
   CaretRight,
   Envelope,
-  User,
+  BasilUserOutline as User,
   UserOutlined,
   ArrowLeft,
   Lock,
@@ -63,5 +72,14 @@ export {
   BasilMoonOutline as Moon,
   LogosQwikIcon as QwikLogo,
   LogosVue as VueLogo,
-  LogosReact as ReactLogo
+  LogosReact as ReactLogo,
+  BasilSettingsAdjustOutline as SettingsAdjust,
+  BasilHomeOutline as Home,
+  BasilExchangeOutline as Exchange,
+  BasilStarOutline as Star,
+  BasilWalletOutline as Wallet,
+  BasilChartPieOutline as Chart,
+  BasilInfoCircleOutline as Info,
+  BasilSettingsAltOutline as Settings,
+  BasilLogoutOutline as Logout
 }
