@@ -11,10 +11,13 @@ import ButtonOptions from '@/components/buttons/ButtonOptions.vue'
 const isAddAccountModalOpen = ref<boolean>(false)
 const accounts = ref<AccountDTO[]>([])
 
-// API
+// ...
 async function getAccounts() {
   accounts.value = await api.accounts.getUsersAccounts('123')
 }
+
+onMounted(getAccounts)
+// ...
 
 // HANDLERS
 function openAddAccountModal() {
@@ -28,9 +31,6 @@ function handleRefetch() {
 function closeAddAccountModal() {
   isAddAccountModalOpen.value = false
 }
-
-// HOOKS
-onMounted(getAccounts)
 </script>
 
 <template>
