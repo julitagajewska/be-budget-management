@@ -37,8 +37,6 @@ const ManageAccountModal = ({
   const [createAccount] = useCreateAccountMutation()
 
   const handleCreate = () => {
-    console.log(name, category, balance)
-
     try {
       if (!currentUser) throw new Error('Nie znaleziono użytkownika o podanym id')
       if (isValid) {

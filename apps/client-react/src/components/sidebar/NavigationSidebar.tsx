@@ -69,7 +69,7 @@ const NavigationSidebar = () => {
         <div>
           <Button
             size="small"
-            text={`Zmień kolory na: schemat ${themes[(theme.id + 1) % 3].label}`}
+            text={`Kolory ${themes[theme.id % 3].label}`}
             onClick={handleThemeToggle}
           />
         </div>

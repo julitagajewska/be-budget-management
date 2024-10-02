@@ -19,6 +19,13 @@ const AddAccountButton = () => {
 
   return (
     <div>
+      <button
+        className="text-md h-6 rounded-md gap-2 button-small text-text-50 bg-primary-600 mt-4"
+        onClick={handleOpen}
+      >
+        <Plus />
+      </button>
+      {/*       
       <Tooltip text="Utwórz nowe konto">
         <Button
           variant="filled"
@@ -28,7 +35,7 @@ const AddAccountButton = () => {
           IconLeft={Plus}
           onClick={handleOpen}
         />
-      </Tooltip>
+      </Tooltip> */}
 
       <ManageAccountModal open={open} handleClose={handleClose} handleOpen={handleOpen} />
     </div>

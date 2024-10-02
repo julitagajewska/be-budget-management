@@ -64,7 +64,7 @@ const Button = ({
 }: ButtonProps) => {
   let classesBase =
     'bg-primary-600 transition-all ease-in-out duration-300 flex flex-row justify-center items-center'
-  let widthClasses = fullWidth ? 'w-full' : ''
+  let widthClasses = fullWidth ? '' : ''
   let sizeClasses = `${widthClasses} `
 
   sizeClasses += variant === 'icon-only' ? `${iconOnlySizes[size]}` : `${sizes[size]}`
@@ -74,7 +74,7 @@ const Button = ({
       type={type}
       onClick={onClick}
       // className={`${classesBase} ${sizeClasses} ${colors[color]} ${variants[variant]} ${className}`}
-      className={`${sizeClasses} bg-primary-600 rounded-md w-full h-6 flex flex-row items-center justify-center text-text-50 text-sm gap-2 overflow-hidden ${sizeClasses}`}
+      className={`${sizeClasses} bg-primary-600 rounded-md h-6 flex flex-row items-center justify-center text-text-50 text-sm gap-2 overflow-hidden ${sizeClasses} ${className}`}
     >
       {IconLeft && <IconLeft className={`${iconSizes[size]} ${iconClassName}`} />}
       <span className="w-full text-ellipsis overflow-hidden text-nowrap">{text}</span>

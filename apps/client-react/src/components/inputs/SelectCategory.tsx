@@ -52,10 +52,11 @@ const SelectCategory = ({
     let id = e.target.value
     setCategory(id)
     handleChange(e)
+    console.log(id)
   }
 
   return (
-    <div className="flex flex-row w-full gap-4">
+    <div className="flex flex-row w-full gap-4 items-center">
       <Select
         value={category ? category : ''}
         label={'Kategoria'}
@@ -64,8 +65,14 @@ const SelectCategory = ({
         placeholder={'Wybierz kategorię ...'}
         handleSelect={handleSelect}
       />
-      <Tooltip text={'Zarządzaj kategoriami'}>
-        <Button
+      <button
+        className="text-md h-6 rounded-md gap-2 button-small text-text-50 bg-primary-600 mt-4"
+        onClick={handleCategoryOpen}
+      >
+        <LabelPlus />
+      </button>
+      {/* <Tooltip text={'Zarządzaj kategoriami'}> */}
+      {/* <Button
           variant="icon-only"
           color="primary"
           size="small"
@@ -73,8 +80,8 @@ const SelectCategory = ({
           onClick={handleCategoryOpen}
           iconClassName="text-md"
           className="mt-4"
-        />
-      </Tooltip>
+        /> */}
+      {/* </Tooltip> */}
     </div>
   )
 }

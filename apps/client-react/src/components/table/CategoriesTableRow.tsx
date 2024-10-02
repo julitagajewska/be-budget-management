@@ -52,13 +52,19 @@ const CategoriesTableRow = ({ category, index }: CategoriesTableRowProps) => {
           open={menuOpen}
           setOpen={setMenuOpen}
         >
-          <Button
+          <button
+            className="text-md h-6 rounded-md gap-2 button-small text-text-50 bg-primary-600"
+            onClick={handleMenuOpen}
+          >
+            <Other />
+          </button>
+          {/* <Button
             variant="icon-only"
             color="neutral"
             IconLeft={Other}
             size="small"
             onClick={handleMenuOpen}
-          />
+          /> */}
         </Popup>
       </td>
       <DeleteCategoryModal

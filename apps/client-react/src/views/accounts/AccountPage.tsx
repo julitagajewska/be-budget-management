@@ -164,7 +164,13 @@ const AccountPage = () => {
         <div className="flex flex-col justify-start gap-8">
           <div className="flex flex-row justify-between items-end w-full">
             <div className="flex flex-col items-start">
-              <Tooltip text="Powrót" side="right">
+              <button
+                className="text-md h-6 rounded-md gap-2 button-small text-text-50 bg-primary-600 mt-4"
+                onClick={() => navigate('/accounts')}
+              >
+                <ArrowLeft />
+              </button>
+              {/* <Tooltip text="Powrót" side="right">
                 <Button
                   variant="icon-only"
                   color="neutral"
@@ -173,7 +179,7 @@ const AccountPage = () => {
                   size="small"
                   onClick={() => navigate('/accounts')}
                 />
-              </Tooltip>
+              </Tooltip> */}
               <h1 className="text-lg font-bold text-background-800">{account?.name}</h1>
             </div>
 
@@ -316,6 +322,7 @@ const AccountPage = () => {
                       size="small"
                       iconClassName="text-md"
                       onClick={() => setFilterMenuOpen(!filterMenuOpen)}
+                      className="width-2"
                     />
                     <Checkbox
                       label="Pokaż szczegółowe dane"
@@ -330,6 +337,7 @@ const AccountPage = () => {
                       onClick={() => setTransactionModalOpen(true)}
                       IconLeft={Plus}
                       size="small"
+                      className="w-48"
                     />
                   </div>
                 </div>

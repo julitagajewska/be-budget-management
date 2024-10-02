@@ -120,16 +120,23 @@ const ManageTransactionModal = ({
             <h2 className="text-lg font-semibold text-Neutral-700">
               {tranaction ? 'Transakcja - edycja' : 'Nowa transakcja'}
             </h2>
-            <Button
+            <button
+              className="text-xl h-6 rounded-md gap-2 button-small text-text-50 bg-primary-600"
+              onClick={handleClose}
+            >
+              <Cross />
+            </button>
+            {/* <Button
               variant="icon-only"
               color="neutral"
               size="small"
               IconLeft={Cross}
               onClick={handleClose}
-            />
+              className="w-6 text-2xl"
+            /> */}
           </div>
 
-          <div className="flex flex-col w-64">
+          <div className="flex flex-col w-full">
             <SelectCategory
               value={category}
               handleChange={(e: React.ChangeEvent<HTMLSelectElement>) =>

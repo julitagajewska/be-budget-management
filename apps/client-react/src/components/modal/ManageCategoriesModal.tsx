@@ -127,7 +127,7 @@ const ManageCategoriesModal = ({ open, handleClose }: ManageCategoriesModalProps
 
             <div className="w-full">
               <h3 className="text-sm font-bold text-background-800">Lista kategorii</h3>
-              <table>
+              <table className="w-full">
                 <thead>
                   <tr className="border-b-2 w-full text-xs">
                     <TableHeadCell label={'#'} align="left" />
@@ -146,7 +146,7 @@ const ManageCategoriesModal = ({ open, handleClose }: ManageCategoriesModalProps
             </div>
 
             <div>
-              <h3 className="text-sm font-bold text-background-800">Nowa kategoria</h3>
+              <h3 className="text-sm font-bold text-background-800">Nowa kategorii</h3>
               <div className="flex flex-col gap-2 pt-2">
                 <Input
                   value={name}
