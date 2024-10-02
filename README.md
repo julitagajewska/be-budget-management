@@ -42,4 +42,5 @@ Transactions can be filtered by various criteria such as date, status, and categ
 
 ⚠️ Please note that the primary objective of this application was to evaluate the frameworks and their features. As such, not all functionalities visible in the user interface are fully implemented.
 ## Screenshots
+![screenshot-2](https://github.com/user-attachments/assets/e23fcc00-c7a7-4796-af45-18a34dcfff19)
 ![screenshot-1](https://github.com/user-attachments/assets/c76dfa4f-8431-4b4f-8e82-d83b94a910c6)
